@@ -19,6 +19,9 @@
     <!-- Fonts -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@iconscout/unicons@4.0.8/css/line.min.css">
 
+    <!-- SweetAlert CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+
     <script>
         // Render localStorage JS:
         if (localStorage.theme) document.documentElement.setAttribute("data-theme", localStorage.theme);
@@ -309,41 +312,64 @@
             </div>
 
             <div class="d-flex justify-content-end">
-                <button class="mb-3 geex-btn geex-btn--primary"><i class="uil-plus"></i> Tambah Data</button>
+                <button class="mb-3 geex-btn geex-btn--primary" data-bs-toggle="modal" data-bs-target="#formModal">
+                    <i class="uil-plus"></i> Tambah Data
+                </button>
             </div>
 
             <div class="geex-content__section geex-content__form table-responsive">
                 <table class="table-reviews-geex-1">
-                  <thead>
-                    <tr style="width: 100%">
-                      <th style="width: 20%">No</th>
-                      <th style="width: 20%">Username Pelanggan</th>
-                      <th style="width: 20%">Tanggal Pemesanan</th>
-                      <th style="width: 20%">Bukti Transaksi</th>
-                      <th style="width: 20%">Status</th>
-                      <th style="width: 20%">Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody class="">
-                    <tr>
-                        <td>1</td>
-                      <td>
-                        adsfasdf
-                      </td>
-                      <td>
-                        asdfasdf
-                      </td>
-                      <td>
-                        adssadf
-                      </td>
-                      <td>asdasdfsda
-                      <td>
-                        addasf
-                      </td>
-                    </tr>
-                  </tbody>
+                    <thead>
+                        <tr style="width: 100%">
+                            <th style="width: 20%">No</th>
+                            <th style="width: 20%">Username Pelanggan</th>
+                            <th style="width: 20%">No Telp Pelanggan</th>
+                            <th style="width: 20%">Tanggal Pemesanan</th>
+                            <th style="width: 20%">Bukti Transaksi</th>
+                            <th style="width: 20%">Status</th>
+                            <th style="width: 20%">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if ($pemesanans->isEmpty())
+                            <tr>
+                                <td colspan="7" class="text-center">Data tidak ada.</td>
+                            </tr>
+                        @else
+                            @foreach ($pemesanans as $index => $pemesanan)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $pemesanan->username }}</td>
+                                    <td>{{ $pemesanan->no_telp }}</td>
+                                    <td>{{ $pemesanan->tanggal_pemesanan }}</td>
+                                    <td>
+                                        <img src="{{ 'assets/bukti_transaksi/' . $pemesanan->bukti_transaksi }}" alt="Bukti Transaksi" width="100">
+                                    </td>
+                                    <td>
+                                        @if ($pemesanan->status == 'Diverifikasi')
+                                            <span class="badge bg-warning">{{ $pemesanan->status }}</span>
+                                        @elseif ($pemesanan->status == 'Berhasil')
+                                            <span class="badge bg-success">{{ $pemesanan->status }}</span>
+                                        @elseif ($pemesanan->status == 'Gagal')
+                                            <span class="badge bg-danger">{{ $pemesanan->status }}</span>
+                                        @endif
+                                    </td>
+                                    <td class="d-flex">
+                                        <!-- Tambahkan tombol aksi di sini, misalnya Edit dan Hapus -->
+                                        <form action="{{ route('pemesanan.destroy', $pemesanan->id) }}" method="POST" onsubmit="return confirmDelete();">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="geex-btn geex-btn--danger"> Hapus</button>
+                                        </form>
+                                        <button class="ms-2 geex-btn" style="background-color: #FEC10F;">Edit</button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
+                    </tbody>
                 </table>
-              </div>
+            </div>
+            
         </div>
     </main>
 
@@ -355,7 +381,81 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.27.0/dist/apexcharts.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.6.6/dragula.min.js" referrerpolicy="origin"></script>
     <script src="./assets/js/main.js"></script>
+
+    <!-- SweetAlert JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <!-- endinject-->
+    @if (session('success'))
+        <script>
+            swal("Berhasil!", "{{ session('success') }}", "success");
+        </script>
+    @endif
+
+    <script>
+        function confirmDelete() {
+            return confirm('Yakin ingin menghapus data?');
+        }
+    </script>
 </body>
+
+<!-- Modal Insert -->
+<div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="formModalLabel">Tambah Data</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form untuk input data pelanggan -->
+                    <form action="{{ route('pemesanan.store') }}" method="POST" id="myForm" enctype="multipart/form-data">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username Pelanggan</label>
+                            <div class="geex-content__form__single__box mb-20">
+                                <input placeholder="Masukkan Username Pelanggan" type="text" name="username"
+                                    class="form-control" required />
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="no_telp" class="form-label">No Telp Pelanggan</label>
+                            <div class="geex-content__form__single__box mb-20">
+                                <input placeholder="No Telp Pelanggan" type="number" name="no_telp"
+                                    class="form-control" required />
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tanggal_pemesanan" class="form-label">Tanggal Pemesanan</label>
+                            <div class="geex-content__form__single__box mb-20">
+                                <input placeholder="Tanggal Pemesanan" type="date" name="tanggal_pemesanan"
+                                    class="form-control" required />
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="bukti_transaksi" class="form-label">Bukti Transaksi</label>
+                            <div class="geex-content__form__single__box mb-20">
+                                <input type="file" class="form-control" name="bukti_transaksi"
+                                    placeholder="Masukkan Bukti Transaksi" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Status</label>
+                            <div class="geex-content__form__single__box mb-20">
+                                <select name="status" class="form-select" required>
+                                    <option value="" disabled selected>Pilih Status</option>
+                                    <option value="Diverifikasi">Diverifikasi</option>
+                                    <option value="Berhasil">Berhasil</option>
+                                    <option value="Gagal">Gagal</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="geex-btn geex-btn--primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+</div>
 
 </html>
