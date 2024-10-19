@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Database\Seeders\AdminSeeder;
+use Database\Seeders\PelangganSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,6 +15,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // Call your seeder
-        $this->call(AdminSeeder::class);
+        $this->call(PelangganSeeder::class);
     }
 }

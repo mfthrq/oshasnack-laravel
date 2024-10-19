@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Admin;
+use App\Models\Pelanggan;
 
 class AdminAuthController extends Controller
 {
@@ -35,6 +36,8 @@ class AdminAuthController extends Controller
 
     public function dashboard()
     {
-        return view('admin.index-admin'); // Return your admin dashboard view
+        $pelanggans = Pelanggan::all();
+        $totalPelanggan = $pelanggans->count(); // Menghitung total pengguna
+        return view('admin.index-admin', compact('pelanggans', 'totalPelanggan'))->with('success', 'Berhasil Login');;
     }
 }

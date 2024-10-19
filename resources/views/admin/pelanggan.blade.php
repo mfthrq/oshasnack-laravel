@@ -19,6 +19,10 @@
     <!-- Fonts -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@iconscout/unicons@4.0.8/css/line.min.css">
 
+    <!-- SweetAlert CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+
+
     <script>
         // Render localStorage JS:
         if (localStorage.theme) document.documentElement.setAttribute("data-theme", localStorage.theme);
@@ -299,98 +303,10 @@
     <main class="geex-main-content">
         @include('layouts.sidebar')
 
-        <div class="geex-customizer">
-            <div class="geex-customizer__header">
-                <h4 class="geex-customizer__title">Customizer</h4>
-                <button class="geex-btn geex-btn__customizer-close">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M18 7.05L16.95 6L12 10.95L7.05 6L6 7.05L10.95 12L6 16.95L7.05 18L12 13.05L16.95 18L18 16.95L13.05 12L18 7.05Z"
-                            fill="#BCBFDB" />
-                        <path
-                            d="M18 7.05L16.95 6L12 10.95L7.05 6L6 7.05L10.95 12L6 16.95L7.05 18L12 13.05L16.95 18L18 16.95L13.05 12L18 7.05Z"
-                            fill="black" fill-opacity="0.8" />
-                    </svg>
-                </button>
-            </div>
-            <div class="geex-customizer__body">
-                <div class="geex-customizer__single">
-                    <h5 class="geex-customizer__single__title">Layout Types</h5>
-                    <ul class="geex-customizer__list geex-customizer__list--layout">
-                        <li class="geex-customizer__list__item">
-                            <button class="geex-btn geex-customizer__btn geex-customizer__btn--ltr active">
-                                <svg width="24" height="20" viewBox="0 0 24 20" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="4.5" y="2.5" width="13" height="5" rx="1.5"
-                                        stroke="white" />
-                                    <rect x="4.5" y="12.5" width="19" height="5" rx="1.5"
-                                        stroke="white" />
-                                    <rect width="1" height="20" fill="white" />
-                                </svg>
-                                LTR
-                            </button>
-                        </li>
-                        <li class="geex-customizer__list__item">
-                            <button class="geex-btn geex-customizer__btn geex-customizer__btn--rtl">
-                                RTL
-                                <svg width="24" height="20" viewBox="0 0 24 20" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="-0.5" y="0.5" width="13" height="5" rx="1.5"
-                                        transform="matrix(-1 0 0 1 19 2)" stroke="#AB54DB" />
-                                    <rect x="-0.5" y="0.5" width="19" height="5" rx="1.5"
-                                        transform="matrix(-1 0 0 1 19 12)" stroke="#AB54DB" />
-                                    <rect width="1" height="20" transform="matrix(-1 0 0 1 24 0)"
-                                        fill="#AB54DB" />
-                                </svg>
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-                <div class="geex-customizer__single">
-                    <h4 class="geex-customizer__single__title">Mode Type</h4>
-                    <ul class="geex-customizer__list geex-customizer__list--sidebar">
-                        <li class="geex-customizer__list__item">
-                            <button class="geex-btn geex-customizer__btn geex-customizer__btn--light active">
-                                <svg width="144" height="86" viewBox="0 0 144 86" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <rect width="144" height="86" rx="10" fill="white" />
-                                    <circle cx="27" cy="22" r="4" fill="#FF5653" />
-                                    <circle cx="38" cy="22" r="4" fill="#FDB23A" />
-                                    <circle cx="49" cy="22" r="4" fill="#2CBF44" />
-                                    <rect x="22" y="36" width="110" height="1" fill="#E7E7E7" />
-                                    <path
-                                        d="M31.94 58.34H26.38L25.46 61H22.52L27.54 47.02H30.8L35.82 61H32.86L31.94 58.34ZM31.18 56.1L29.16 50.26L27.14 56.1H31.18ZM36.9764 55.42C36.9764 54.3 37.1964 53.3067 37.6364 52.44C38.0897 51.5733 38.6964 50.9067 39.4564 50.44C40.2297 49.9733 41.0897 49.74 42.0364 49.74C42.8631 49.74 43.5831 49.9067 44.1964 50.24C44.8231 50.5733 45.3231 50.9933 45.6964 51.5V49.92H48.5164V61H45.6964V59.38C45.3364 59.9 44.8364 60.3333 44.1964 60.68C43.5697 61.0133 42.8431 61.18 42.0164 61.18C41.0831 61.18 40.2297 60.94 39.4564 60.46C38.6964 59.98 38.0897 59.3067 37.6364 58.44C37.1964 57.56 36.9764 56.5533 36.9764 55.42ZM45.6964 55.46C45.6964 54.78 45.5631 54.2 45.2964 53.72C45.0297 53.2267 44.6697 52.8533 44.2164 52.6C43.7631 52.3333 43.2764 52.2 42.7564 52.2C42.2364 52.2 41.7564 52.3267 41.3164 52.58C40.8764 52.8333 40.5164 53.2067 40.2364 53.7C39.9697 54.18 39.8364 54.7533 39.8364 55.42C39.8364 56.0867 39.9697 56.6733 40.2364 57.18C40.5164 57.6733 40.8764 58.0533 41.3164 58.32C41.7697 58.5867 42.2497 58.72 42.7564 58.72C43.2764 58.72 43.7631 58.5933 44.2164 58.34C44.6697 58.0733 45.0297 57.7 45.2964 57.22C45.5631 56.7267 45.6964 56.14 45.6964 55.46Z"
-                                        fill="#464255" />
-                                </svg>
-                            </button>
-                        </li>
-                        <li class="geex-customizer__list__item">
-                            <button class="geex-btn geex-customizer__btn geex-customizer__btn--dark">
-                                <svg width="144" height="86" viewBox="0 0 144 86" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <rect width="144" height="86" rx="10" fill="#2F2A36" />
-                                    <circle cx="27" cy="22" r="4" fill="#FF5653" />
-                                    <circle cx="38" cy="22" r="4" fill="#FDB23A" />
-                                    <circle cx="49" cy="22" r="4" fill="#2CBF44" />
-                                    <rect x="22" y="36" width="110" height="1" fill="#D0D6DE" />
-                                    <path
-                                        d="M31.94 58.34H26.38L25.46 61H22.52L27.54 47.02H30.8L35.82 61H32.86L31.94 58.34ZM31.18 56.1L29.16 50.26L27.14 56.1H31.18ZM36.9764 55.42C36.9764 54.3 37.1964 53.3067 37.6364 52.44C38.0897 51.5733 38.6964 50.9067 39.4564 50.44C40.2297 49.9733 41.0897 49.74 42.0364 49.74C42.8631 49.74 43.5831 49.9067 44.1964 50.24C44.8231 50.5733 45.3231 50.9933 45.6964 51.5V49.92H48.5164V61H45.6964V59.38C45.3364 59.9 44.8364 60.3333 44.1964 60.68C43.5697 61.0133 42.8431 61.18 42.0164 61.18C41.0831 61.18 40.2297 60.94 39.4564 60.46C38.6964 59.98 38.0897 59.3067 37.6364 58.44C37.1964 57.56 36.9764 56.5533 36.9764 55.42ZM45.6964 55.46C45.6964 54.78 45.5631 54.2 45.2964 53.72C45.0297 53.2267 44.6697 52.8533 44.2164 52.6C43.7631 52.3333 43.2764 52.2 42.7564 52.2C42.2364 52.2 41.7564 52.3267 41.3164 52.58C40.8764 52.8333 40.5164 53.2067 40.2364 53.7C39.9697 54.18 39.8364 54.7533 39.8364 55.42C39.8364 56.0867 39.9697 56.6733 40.2364 57.18C40.5164 57.6733 40.8764 58.0533 41.3164 58.32C41.7697 58.5867 42.2497 58.72 42.7564 58.72C43.2764 58.72 43.7631 58.5933 44.2164 58.34C44.6697 58.0733 45.0297 57.7 45.2964 57.22C45.5631 56.7267 45.6964 56.14 45.6964 55.46Z"
-                                        fill="#D0D6DE" />
-                                </svg>
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="geex-customizer-overlay"></div>
-        </div>
-
         <div class="geex-content">
             <div class="geex-content__header">
                 <div class="geex-content__header__content">
                     <h2 class="geex-content__header__title">Data Pelanggan</h2>
-                    <p class="geex-content__header__subtitle">Selamat datang [admin] di Website Admin Oshasnack!</p>
                 </div>
 
                 @include('layouts.header')
@@ -404,39 +320,53 @@
 
             <div class="geex-content__section geex-content__form table-responsive">
                 <table class="table-reviews-geex-1">
-                  <thead>
-                    <tr style="width: 100%">
-                      <th style="width: 20%">No</th>
-                      <th style="width: 20%">Email</th>
-                      <th style="width: 20%">Username</th>
-                      <th style="width: 20%">No Telp</th>
-                      <th style="width: 20%">Password</th>
-                      <th style="width: 20%">Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody class="">
-                    <tr>
-                        <td>1</td>
-                      <td>
-                        adsfasdf
-                      </td>
-                      <td>
-                        asdfasdf
-                      </td>
-                      <td>
-                        adssadf
-                      </td>
-                      <td>asdasdfsda
-                      <td>
-                        <div class="d-flex justify-content-end">
-                            <button class="geex-btn geex-btn--danger"> Hapus</button>
-                            <button class="ms-2 geex-btn geex-btn--primary"> Edit</button>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
+                    <thead>
+                        <tr style="width: 100%">
+                            <th style="width: 20%">No</th>
+                            <th style="width: 20%">Email</th>
+                            <th style="width: 20%">Username</th>
+                            <th style="width: 20%">No Telp</th>
+                            <th style="width: 20%">Alamat</th>
+                            <th style="width: 20%">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if ($pelanggans->isEmpty())
+                            <tr>
+                                <td colspan="5" class="text-center">Data tidak ada.</td>
+                            </tr>
+                        @else
+                            @foreach ($pelanggans as $index => $pelanggan)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $pelanggan->email }}</td>
+                                    <td>{{ $pelanggan->username }}</td>
+                                    <td>{{ $pelanggan->no_telp }}</td>
+                                    <td>{{ $pelanggan->alamat }}</td>
+                                    <td>
+                                        <div class="d-flex justify-content-end">
+                                            <form action="{{ route('pelanggan.destroy', $pelanggan->id) }}" method="POST" onsubmit="return confirmDelete();">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="geex-btn geex-btn--danger"> Hapus</button>
+                                            </form>
+                                            <button class="ms-2 geex-btn edit-btn" data-bs-toggle="modal" data-bs-target="#formModalEdit" 
+                                            data-id="{{ $pelanggan->id }}" 
+                                            data-email="{{ $pelanggan->email }}" 
+                                            data-username="{{ $pelanggan->username }}" 
+                                            data-no_telp="{{ $pelanggan->no_telp }}" 
+                                            data-alamat="{{ $pelanggan->alamat }}" 
+                                            style="background-color: #FEC10F;"> 
+                                                Edit
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
+                    </tbody>
                 </table>
-              </div>
+            </div>            
         </div>
     </main>
 
@@ -448,10 +378,26 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.27.0/dist/apexcharts.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.6.6/dragula.min.js" referrerpolicy="origin"></script>
     <script src="./assets/js/main.js"></script>
+
+    <!-- SweetAlert JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <!-- endinject-->
+    @if (session('success'))
+        <script>
+            swal("Berhasil!", "{{ session('success') }}", "success");
+        </script>
+    @endif
+
+    <script>
+        function confirmDelete() {
+            return confirm('Yakin ingin menghapus data?');
+        }
+    </script>
 </body>
 
-<!-- Modal Bootstrap -->
+<!-- Modal Insert -->
 <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -460,30 +406,37 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <!-- Form di dalam modal -->
-                <form id="myForm">
+                <!-- Form untuk input data pelanggan -->
+                <form action="{{ route('pelanggan.store') }}" method="POST" id="myForm">
+                    @csrf
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input placeholder="Masukkan Email" type="email" class="form-control" />
+                            <input placeholder="Masukkan Email" type="email" name="email" class="form-control" required />
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="name" class="form-label">Nama Lengkap</label>
+                        <label for="username" class="form-label">Nama Lengkap</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input placeholder="Masukkan Nama Lengkap" class="form-control" />
+                            <input placeholder="Masukkan Nama Lengkap" name="username" class="form-control" required />
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="no_telp" class="form-label">No Telp</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input placeholder="Masukkan No Telp" type="number" class="form-control" />
+                            <input placeholder="Masukkan No Telp" type="number" name="no_telp" class="form-control" required />
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="Password" class="form-label">Password</label>
+                        <label for="alamat" class="form-label">Alamat</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input placeholder="Masukkan Password" type="password" class="form-control" />
+                            <input type="text" class="form-control" name="alamat" placeholder="Masukkan Alamat" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <div class="geex-content__form__single__box mb-20">
+                            <input placeholder="Masukkan Password" type="password" name="password" class="form-control" required />
                         </div>
                     </div>
                     <button type="submit" class="geex-btn geex-btn--primary">Submit</button>
@@ -492,5 +445,78 @@
         </div>
     </div>
 </div>
+
+<!-- Modal Edit-->
+<div class="modal fade" id="formModalEdit" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="formModalLabel">Edit Data</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Form untuk input data pelanggan -->
+                <form id="editForm" method="POST" action="">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="id" id="editId">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <div class="geex-content__form__single__box mb-20">
+                            <input type="email" class="form-control" name="email" id="editEmail" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <div class="geex-content__form__single__box mb-20">
+                            <input type="text" class="form-control" name="username" id="editUsername" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="no_telp" class="form-label">No Telp</label>
+                        <div class="geex-content__form__single__box mb-20">
+                            <input type="text" class="form-control" name="no_telp" id="editNoTelp" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="alamat" class="form-label">Alamat</label>
+                        <div class="geex-content__form__single__box mb-20">
+                            <input type="text" class="form-control" name="alamat" id="editAlamat" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password (kosongkan jika tidak ingin mengubah)</label>
+                        <div class="geex-content__form__single__box mb-20">
+                            <input type="password" class="form-control" name="password" placeholder="Masukkan Password jika ingin mengganti">
+                        </div>
+                    </div>
+                    <button type="submit" class="geex-btn geex-btn--primary">Perbarui</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.edit-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            const email = this.getAttribute('data-email');
+            const username = this.getAttribute('data-username');
+            const no_telp = this.getAttribute('data-no_telp');
+            const alamat = this.getAttribute('data-alamat');
+
+            // Set value input di modal
+            document.getElementById('editId').value = id;
+            document.getElementById('editEmail').value = email;
+            document.getElementById('editUsername').value = username;
+            document.getElementById('editNoTelp').value = no_telp;
+            document.getElementById('editAlamat').value = alamat;
+
+            // Update action URL form edit
+            document.getElementById('editForm').action = `/pelanggan/${id}`; // Ganti sesuai route Anda
+        });
+    });
+</script>
 
 </html>
