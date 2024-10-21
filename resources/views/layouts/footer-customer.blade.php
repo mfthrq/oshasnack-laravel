@@ -67,7 +67,7 @@
                     data-sal-duration="800"
                     data-sal="slide-up"
                   >
-                    <a href="utama.html">Utama</a>
+                    <a href="/">Utama</a>
                   </li>
                   <li
                     class="item"
@@ -75,7 +75,7 @@
                     data-sal-duration="1000"
                     data-sal="slide-up"
                   >
-                    <a href="tentang.html">Tentang</a>
+                    <a href="/tentang">Tentang</a>
                   </li>
                   <li
                     class="item"
@@ -83,7 +83,7 @@
                     data-sal-duration="1200"
                     data-sal="slide-up"
                   >
-                    <a href="produk.html">Produk</a>
+                    <a href="/produk">Produk</a>
                   </li>
                   <li
                     class="item"
@@ -91,7 +91,7 @@
                     data-sal-duration="1400"
                     data-sal="slide-up"
                   >
-                    <a href="testimoni.html">Testimoni</a>
+                    <a href="/testimoni">Testimoni</a>
                   </li>
                   <li
                     class="item"
@@ -99,7 +99,7 @@
                     data-sal-duration="1600"
                     data-sal="slide-up"
                   >
-                    <a href="kontak.html">Kontak</a>
+                    <a href="/kontak">Kontak</a>
                   </li>
                 </ul>
               </div>

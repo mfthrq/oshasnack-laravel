@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Admin | Pelanggan</title>
+    <title>Admin | Produk</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -305,7 +305,7 @@
         <div class="geex-content">
             <div class="geex-content__header">
                 <div class="geex-content__header__content">
-                    <h2 class="geex-content__header__title">Data Pelanggan</h2>
+                    <h2 class="geex-content__header__title">Data Produk</h2>
                 </div>
 
                 @include('layouts.header')
@@ -322,43 +322,45 @@
                     <thead>
                         <tr style="width: 100%">
                             <th style="width: 20%">No</th>
-                            <th style="width: 20%">Email</th>
-                            <th style="width: 20%">Username</th>
-                            <th style="width: 20%">No Telp</th>
-                            <th style="width: 20%">Alamat</th>
+                            <th style="width: 20%">Nama</th>
+                            <th style="width: 20%">Deskripsi</th>
+                            <th style="width: 20%">Komposisi</th>
+                            <th style="width: 20%">Keunggulan</th>
+                            <th style="width: 20%">Foto</th>
                             <th style="width: 20%">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @if ($pelanggans->isEmpty())
+                        @if ($produks->isEmpty())
                             <tr>
-                                <td colspan="5" class="text-center">Data tidak ada.</td>
+                                <td colspan="7" class="text-center">Data tidak ada.</td>
                             </tr>
                         @else
-                            @foreach ($pelanggans as $index => $pelanggan)
+                            @foreach ($produks as $index => $produk)
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
-                                    <td>{{ $pelanggan->email }}</td>
-                                    <td>{{ $pelanggan->username }}</td>
-                                    <td>{{ $pelanggan->no_telp }}</td>
-                                    <td>{{ $pelanggan->alamat }}</td>
+                                    <td>{{ $produk->nama }}</td>
+                                    <td>{{ $produk->deskripsi }}</td>
+                                    <td>{{ $produk->komposisi }}</td>
+                                    <td>{{ $produk->keunggulan }}</td>
                                     <td>
-                                        <div class="d-flex justify-content-end">
-                                            <form action="{{ route('pelanggan.destroy', $pelanggan->id) }}" method="POST" onsubmit="return confirmDelete();">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="geex-btn geex-btn--danger"> Hapus</button>
-                                            </form>
-                                            <button class="ms-2 geex-btn edit-btn" data-bs-toggle="modal" data-bs-target="#formModalEdit" 
-                                            data-id="{{ $pelanggan->id }}" 
-                                            data-email="{{ $pelanggan->email }}" 
-                                            data-username="{{ $pelanggan->username }}" 
-                                            data-no_telp="{{ $pelanggan->no_telp }}" 
-                                            data-alamat="{{ $pelanggan->alamat }}" 
-                                            style="background-color: #FEC10F;"> 
-                                                Edit
-                                            </button>
-                                        </div>
+                                        <img src="{{ asset('assets/foto_produk/' . $produk->foto_produk) }}" alt="Foto Produk" width="100">
+                                    </td>
+                                    <td class="d-flex">
+                                        <!-- Tambahkan tombol aksi di sini, misalnya Edit dan Hapus -->
+                                        <form action="{{ route('produk.destroy', $produk->id) }}" method="POST" onsubmit="return confirmDelete();">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="geex-btn geex-btn--danger"> Hapus</button>
+                                        </form>
+                                        <button class="ms-2 geex-btn edit-btn" data-bs-toggle="modal" data-bs-target="#formModalEdit" 
+                                        data-id="{{ $produk->id }}" 
+                                        data-nama="{{ $produk->nama }}" 
+                                        data-deskripsi="{{ $produk->deskripsi }}" 
+                                        data-komposisi="{{ $produk->komposisi }}" 
+                                        data-keunggulan="{{ $produk->keunggulan }}" 
+                                        data-foto_produk="{{ $produk->foto_produk }}"
+                                        style="background-color: #FEC10F;">Edit</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -404,37 +406,38 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <!-- Form untuk input data pelanggan -->
-                <form action="{{ route('pelanggan.store') }}" method="POST" id="myForm">
+                <!-- Form untuk input data produk -->
+                <form action="{{ route('produk.store') }}" method="POST" id="myForm" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
+                        <label for="nama" class="form-label">Nama</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input placeholder="Masukkan Email" type="email" name="email" class="form-control" required />
+                            <input placeholder="Masukkan Nama Produk" type="nama" name="nama" class="form-control" required />
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="username" class="form-label">Nama Lengkap</label>
+                        <label for="deskripsi" class="form-label">Deskripsi</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input placeholder="Masukkan Nama Lengkap" name="username" class="form-control" required />
+                            <textarea placeholder="Masukkan Deskripsi Produk" name="deskripsi" class="form-control" rows="4" required ></textarea>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="no_telp" class="form-label">No Telp</label>
+                        <label for="komposisi" class="form-label">Komposisi</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input placeholder="Masukkan No Telp" type="number" name="no_telp" class="form-control" required />
+                            <input placeholder="Masukkan Komposisi Produk" type="text" name="komposisi" class="form-control" required />
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="alamat" class="form-label">Alamat</label>
+                        <label for="keunggulan" class="form-label">Keunggulan</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <textarea class="form-control" name="alamat" placeholder="Masukkan Alamat" rows="4" required></textarea>
+                            <input class="form-control" name="keunggulan" placeholder="Masukkan Keunggulan Produk" required />
                         </div>
                     </div>                    
                     <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
+                        <label for="foto_produk" class="form-label">Foto Produk</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input placeholder="Masukkan Password" type="password" name="password" class="form-control" required />
+                            <input type="file" class="form-control" name="foto_produk" 
+                                   placeholder="Masukkan Foto Produk" required accept="image/*">
                         </div>
                     </div>
                     <button type="submit" class="geex-btn geex-btn--primary">Submit</button>
@@ -454,40 +457,34 @@
             </div>
             <div class="modal-body">
                 <!-- Form untuk input data pelanggan -->
-                <form id="editForm" method="POST" action="">
+                <form method="POST" id="editForm">
                     @csrf
                     @method('PUT')
                     <input type="hidden" name="id" id="editId">
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
+                        <label for="nama" class="form-label">Nama</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input type="email" class="form-control" name="email" id="editEmail" required>
+                            <input placeholder="Masukkan Nama Produk" id="editNama" type="nama" name="nama" class="form-control" required />
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
+                        <label for="deskripsi" class="form-label">Deskripsi</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input type="text" class="form-control" name="username" id="editUsername" required>
+                            <textarea placeholder="Masukkan Deskripsi Produk" id="editDeskripsi" name="deskripsi" class="form-control" rows="4" required ></textarea>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="no_telp" class="form-label">No Telp</label>
+                        <label for="komposisi" class="form-label">Komposisi</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input type="text" class="form-control" name="no_telp" id="editNoTelp" required>
+                            <input placeholder="Masukkan Komposisi Produk" id="editKomposisi" type="text" name="komposisi" class="form-control" required />
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="alamat" class="form-label">Alamat</label>
+                        <label for="keunggulan" class="form-label">Keunggulan</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input type="text" class="form-control" name="alamat" id="editAlamat" required>
+                            <input class="form-control" id="editKeunggulan" type="text" name="keunggulan" placeholder="Masukkan Keunggulan Produk" required />
                         </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password (kosongkan jika tidak ingin mengubah)</label>
-                        <div class="geex-content__form__single__box mb-20">
-                            <input type="password" class="form-control" name="password" placeholder="Masukkan Password jika ingin mengganti">
-                        </div>
-                    </div>
+                    </div> 
                     <button type="submit" class="geex-btn geex-btn--primary">Perbarui</button>
                 </form>
             </div>
@@ -499,20 +496,20 @@
     document.querySelectorAll('.edit-btn').forEach(button => {
         button.addEventListener('click', function() {
             const id = this.getAttribute('data-id');
-            const email = this.getAttribute('data-email');
-            const username = this.getAttribute('data-username');
-            const no_telp = this.getAttribute('data-no_telp');
-            const alamat = this.getAttribute('data-alamat');
+            const nama = this.getAttribute('data-nama');
+            const deskripsi = this.getAttribute('data-deskripsi');
+            const komposisi = this.getAttribute('data-komposisi');
+            const keunggulan = this.getAttribute('data-keunggulan');
 
             // Set value input di modal
             document.getElementById('editId').value = id;
-            document.getElementById('editEmail').value = email;
-            document.getElementById('editUsername').value = username;
-            document.getElementById('editNoTelp').value = no_telp;
-            document.getElementById('editAlamat').value = alamat;
+            document.getElementById('editNama').value = nama;
+            document.getElementById('editDeskripsi').value = deskripsi;
+            document.getElementById('editKomposisi').value = komposisi;
+            document.getElementById('editKeunggulan').value = keunggulan;
 
             // Update action URL form edit
-            document.getElementById('editForm').action = `/pelanggan/${id}`; // Ganti sesuai route Anda
+            document.getElementById('editForm').action = `/admin/produk/${id}`; // Ganti sesuai route Anda
         });
     });
 </script>

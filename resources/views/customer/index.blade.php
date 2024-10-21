@@ -53,7 +53,7 @@
               <span style="color: #771e56;"> Ngangenin! </span>
             </h2>
             <a
-              href="produk.html"
+              href="/produk"
               class="rts-btn btn-secondary radious-5"
               data-sal-delay="100"
               data-sal-duration="800"
@@ -143,7 +143,7 @@
                 dan telah mendapatkan tempat baik dikalangan target marketnya.
               </p>
 
-              <a href="tentang.html" class="rts-btn btn-secondary radious-5"
+              <a href="/tentang" class="rts-btn btn-secondary radious-5"
                 >Lebih Lanjut</a
               >
             </div>
@@ -259,7 +259,7 @@
             <!-- single slider -->
             <div class="trending-items_wrapper live-tranding-count m--0">
               <div class="thumbnail" style=" background-color:#fdc00d; border-radius: 10px;">
-                <a href="explore-single.html" class="d-flex justify-content-center">
+                <a href="#" class="d-flex justify-content-center">
                   <img
                     src="assets/assets_customer/images/Keju_Goreng_Original.png"
                     alt="Stik Keju Goreng"
@@ -273,7 +273,7 @@
                   <span class="deg" style="color: #fdc00d"> Enak, Kriuk, Gurih-gurih Gitu! </span>
                   <a
                     class="rts-btn btn-secondary radious-5"
-                    href="detail-produk-1.html"
+                    href="#"
                     >Detail Produk</a
                   >
                 </div>
@@ -292,7 +292,7 @@
             <!-- single slider -->
             <div class="trending-items_wrapper live-tranding-count m--0">
               <div class="thumbnail" style=" background-color:#fdc00d; border-radius: 10px;">
-                <a href="explore-single.html" class="d-flex justify-content-center">
+                <a href="#" class="d-flex justify-content-center">
                   <img
                     src="assets/assets_customer/images/Keju_Goreng_Pedas.png"
                     alt="Stik Keju Goreng"
@@ -306,7 +306,7 @@
                   <span class="deg" style="color: #fdc00d"> Gurih, Kriuk, Lumayan Pedas! </span>
                   <a
                     class="rts-btn btn-secondary radious-5"
-                    href="detail-produk-2.html"
+                    href="#"
                     >Detail Produk</a
                   >
                 </div>
@@ -325,7 +325,7 @@
             <!-- single slider -->
             <div class="trending-items_wrapper live-tranding-count m--0">
               <div class="thumbnail" style=" background-color:#fdc00d; border-radius: 10px;">
-                <a href="explore-single.html" class="d-flex justify-content-center">
+                <a href="#" class="d-flex justify-content-center">
                   <img
                     src="assets/assets_customer/images/Stik_Keju_Original.png"
                     alt="Stik Keju Goreng"
@@ -339,7 +339,7 @@
                   <span class="deg" style="color: #fdc00d"> Kriuk, Gurih, Enak! </span>
                   <a
                     class="rts-btn btn-secondary radious-5"
-                    href="detail-produk-3.html"
+                    href="#"
                     >Detail Produk</a
                   >
                 </div>
@@ -359,7 +359,7 @@
             data-sal-duration="800"
             data-sal="slide-up"
           >
-            <a href="produk.html" class="rts-btn btn-secondary radious-5 btn-md"
+            <a href="/produk" class="rts-btn btn-secondary radious-5 btn-md"
               >Lebih Banyak</a
             >
           </div>

@@ -48,9 +48,8 @@
                         <div class="geex-content__feature__card">
                             <div class="geex-content__feature__card__text">
                                 <p class="geex-content__feature__card__subtitle">Total Pemesanan</p>
-                                <h4 class="geex-content__feature__card__title">200TB</h4>
-                                <span class="geex-content__feature__card__badge">+2.5%</span>
-                            </div>
+                                <h4 class="geex-content__feature__card__title">{{ $totalPemesanan }}</h4>
+                            </div>                            
                             <div class="geex-content__feature__card__img">
                                 <img src="assets/img/feature/feature-2.svg" alt="feature" />
                             </div>
@@ -64,40 +63,47 @@
                                 <img src="assets/img/feature/feature-3.svg" alt="feature" />
                             </div>
                         </div>
+                        <div class="geex-content__feature__card">
+                            <div class="geex-content__feature__card__text">
+                                <p class="geex-content__feature__card__subtitle">Total Produk</p>
+                                <h4 class="geex-content__feature__card__title">10</h4>
+                            </div>
+                            <div class="geex-content__feature__card__img">
+                                <img src="assets/img/feature/feature-3.svg" alt="feature" />
+                            </div>
+                        </div>
                     </div>
 
                     <div class="geex-content__feature mb-40">
                         <div class="geex-content__feature__card">
                             <div class="geex-content__feature__card__text">
                                 <p class="geex-content__feature__card__subtitle">Pemesanan Diverifikasi</p>
-                                <h4 class="geex-content__feature__card__title">87,245k</h4>
-                                <span class="geex-content__feature__card__badge danger-color">-4.4%</span>
+                                <h4 class="geex-content__feature__card__title">{{ $totalDiverifikasi }}</h4>
                             </div>
                             <div class="geex-content__feature__card__img">
-                                <img src="assets/img/feature/feature-3.svg" alt="feature" />
+                                <img src="{{ asset('assets/img/feature/feature-3.svg') }}" alt="feature" />
                             </div>
                         </div>
                         <div class="geex-content__feature__card">
                             <div class="geex-content__feature__card__text">
                                 <p class="geex-content__feature__card__subtitle">Pemesanan Berhasil</p>
-                                <h4 class="geex-content__feature__card__title">200TB</h4>
-                                <span class="geex-content__feature__card__badge">+2.5%</span>
+                                <h4 class="geex-content__feature__card__title">{{ $totalBerhasil }}</h4>
                             </div>
                             <div class="geex-content__feature__card__img">
-                                <img src="assets/img/feature/feature-2.svg" alt="feature" />
+                                <img src="{{ asset('assets/img/feature/feature-2.svg') }}" alt="feature" />
                             </div>
                         </div>
                         <div class="geex-content__feature__card">
                             <div class="geex-content__feature__card__text">
                                 <p class="geex-content__feature__card__subtitle">Pemesanan Gagal</p>
-                                <h4 class="geex-content__feature__card__title">87,245k</h4>
-                                <span class="geex-content__feature__card__badge danger-color">-4.4%</span>
+                                <h4 class="geex-content__feature__card__title">{{ $totalGagal }}</h4>
                             </div>
                             <div class="geex-content__feature__card__img">
-                                <img src="assets/img/feature/feature-3.svg" alt="feature" />
+                                <img src="{{ asset('assets/img/feature/feature-3.svg') }}" alt="feature" />
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </div>

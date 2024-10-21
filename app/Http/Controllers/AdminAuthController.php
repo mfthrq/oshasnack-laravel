@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Admin;
 use App\Models\Pelanggan;
+use App\Models\Pemesanan;
 
 class AdminAuthController extends Controller
 {
@@ -38,6 +39,15 @@ class AdminAuthController extends Controller
     {
         $pelanggans = Pelanggan::all();
         $totalPelanggan = $pelanggans->count(); // Menghitung total pengguna
-        return view('admin.index-admin', compact('pelanggans', 'totalPelanggan'))->with('success', 'Berhasil Login');;
+        $pemesanans = Pemesanan::all(); // Ambil semua pemesanan
+        $totalPemesanan = $pemesanans->count(); // Menghitung total pemesanan
+    
+        // Menghitung pemesanan berdasarkan status
+        $totalDiverifikasi = $pemesanans->where('status', 'Diverifikasi')->count();
+        $totalBerhasil = $pemesanans->where('status', 'Berhasil')->count();
+        $totalGagal = $pemesanans->where('status', 'Gagal')->count();
+        
+        return view('admin.index-admin', compact('pelanggans', 'totalPelanggan', 'totalPemesanan', 'totalDiverifikasi', 'totalBerhasil', 'totalGagal'))->with('success', 'Berhasil Login');
     }
+    
 }
