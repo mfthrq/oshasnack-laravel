@@ -512,7 +512,7 @@
             document.getElementById('editAlamat').value = alamat;
 
             // Update action URL form edit
-            document.getElementById('editForm').action = `/pelanggan/${id}`; // Ganti sesuai route Anda
+            document.getElementById('editForm').action = `/admin/pelanggan/${id}`; // Ganti sesuai route Anda
         });
     });
 </script>
