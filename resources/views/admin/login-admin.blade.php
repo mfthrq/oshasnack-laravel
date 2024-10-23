@@ -36,7 +36,7 @@
 			<div class="geex-content__authentication__content p-0">
 				<div class="geex-content__authentication__content__wrapper">
 					<div class="geex-content__authentication__content__logo mt-5">
-						<a href="index.html">
+						<a href="/admin/login-admin">
 							<img class="logo-lite" src="{{ asset('assets/img/logo_oshasnack.jpg')}}" width="200px" alt="logo">
 							<img class="logo-dark" src="{{ asset('assets/img/logo_oshasnack.jpg')}}"  width="200px" alt="logo">
 						</a>

@@ -24,6 +24,33 @@
     <!-- style css -->
     <link rel="stylesheet" href="{{ asset('assets/assets_customer/css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+
+    <style>
+        /* Atur ukuran SweetAlert */
+        .swal2-popup {
+            width: 500px !important; /* Atur lebar popup sesuai kebutuhan */
+            max-width: 90vw; /* Pastikan popup tidak melebihi lebar layar */
+            font-size: 15px; /* Atur ukuran font di dalam popup */
+        }
+
+        /* Atur ukuran tombol OK */
+        .swal2-confirm {
+            font-size: 15px; /* Atur ukuran font tombol */
+            padding: 10px 20px; /* Atur padding untuk tombol */
+            min-width: 100px; /* Atur lebar minimum tombol */
+            background-color: #771E56 !important; /* Atur warna latar belakang tombol */
+            color: #fff; /* Atur warna teks tombol menjadi putih */
+            border: none; /* Hapus border jika ada */
+        }
+
+        /* Ubah warna saat tombol hover */
+        .swal2-confirm:hover {
+            color: #771E56;
+            background-color: #FEC10E !important; /* Warna latar belakang saat hover */
+        }
+    </style>
 </head>
 
 <body class="rt_bg-secondary">
@@ -65,8 +92,8 @@
                     </div>
                     
                     <div class="d-flex gap-4">
-                        <a href="#" class="rts-btn btn-primary fw-bold" style="color: #771e56">Edit Data</a>
-                        <form id="logout-form" action="{{ route('pelanggan.logout') }}" method="POST" >
+                        <button href="#" class="rts-btn btn-primary fw-bold" style="color: #771e56" data-bs-toggle="modal" data-bs-target="#formModalEdit">Edit Data</button>
+                        <form id="logout-form" action="{{ route('pelanggan.logout') }}" method="POST" onsubmit="clearKeranjang()">
                             @csrf
                             <button type="submit" class="rts-btn btn-danger fw-bold">Logout</button>
                         </form>
@@ -114,6 +141,72 @@
     <!-- main js -->
     <script src="assets/assets_customer/js/main.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @if(session('success'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: '{{ session('success') }}',
+                confirmButtonText: 'OK'
+            });
+        });
+    </script>
+    @endif
+
+    <script>
+        function clearKeranjang() {
+            localStorage.removeItem('keranjang');
+        }
+    </script>
 </body>
+
+<!-- Modal Edit-->
+<div class="modal fade" id="formModalEdit" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="background-color: #771e56;">
+            <div class="modal-header">
+                <h5 class="modal-title p-4" id="formModalLabel">Edit Data Profile</h5>
+                <button style="background-color: #FEC10E;" type="button" class="me-4 btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+            </div>
+            <!-- Form untuk input data pelanggan -->
+            <form class="login-wrapper w-100" id="editForm" method="POST" action="{{ route('profile-pelanggan.update', session('id')) }}">
+                @csrf
+                @method('PUT')
+                <input type="hidden" value="{{ session('id') }}" name="id" id="editId">
+
+                <div class="mb-3">
+                    <label for="editEmail" class="form-label">Email</label>
+                    <input type="email" class="form-control" value="{{ session('email') }}" name="email" id="editEmail" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="editUsername" class="form-label">Username</label>
+                    <input type="text" class="form-control" value="{{ session('username') }}" name="username" id="editUsername" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="editNoTelp" class="form-label">No Telp</label>
+                    <input type="text" class="form-control" value="{{ session('no_telp') }}" name="no_telp" id="editNoTelp" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="editAlamat" class="form-label">Alamat</label>
+                    <input type="text" class="form-control" value="{{ session('alamat') }}" name="alamat" id="editAlamat" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="editPassword" class="form-label">Password (kosongkan jika tidak ingin mengubah)</label>
+                    <input type="password" class="form-control" name="password" id="editPassword" placeholder="Masukkan Password jika ingin mengganti">
+                </div>
+
+                <button type="submit" class="fw-bold rts-btn btn-primary radious-5 w-100"  style="color: #771e56;">Perbarui</button>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 </html>

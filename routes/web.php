@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\KeranjangController;
 use App\Http\Middleware\AdminAuth;
 use App\Http\Middleware\PelangganAuth;
 use Illuminate\Support\Facades\Auth;
@@ -66,6 +67,38 @@ Route::get('/admin/produk/{id}/edit', [ProdukController::class, 'edit'])->name('
 Route::put('/admin/produk/{id}', [ProdukController::class, 'update'])->name('produk.update');
 
 // ======================= PELANGGAN ROUTE ============================
+// ============== LOGIN =================
+
+Route::get('/login-pelanggan', [PelangganAuthController::class, 'showLoginForm'])->name('login-pelanggan');
+
+Route::post('/login-pelanggan', [PelangganAuthController::class, 'login'])->name('pelanggan.login');
+
+Route::middleware([PelangganAuth::class])->group(function () {
+    Route::get('/profile', [PelangganController::class, 'indexProfile'])->name('profile-pelanggan.index'); 
+
+    Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang.index'); 
+});
+
+// ============== SIGNUP =================
+Route::get('/signup-pelanggan', function () {
+    return view('customer/signup-pelanggan');
+});
+
+Route::post('/signup-pelanggan/store', [PelangganController::class, 'storePelanggan'])->name('signup-pelanggan.store');
+
+// ============== PRODUK & DETAIL PRODUK =================
+Route::get('/produk', [ProdukController::class, 'indexProdukPelanggan'])->name('produkPelanggan.index'); 
+
+Route::get('/detail-produk/{id}', [ProdukController::class, 'showDetailProduk'])->name('produk.detail');
+
+// ============== KERANJANG =================
+Route::post('/keranjang/tambah/{id}', [KeranjangController::class, 'tambahKeranjang'])->name('keranjang.tambah');
+
+Route::delete('/keranjang/hapus/{id}', [KeranjangController::class, 'hapusKeranjang'])->name('keranjang.hapus');
+
+// ============== PROFILE =================
+Route::put('/profile/{id}', [PelangganController::class, 'updatePelanggan'])->name('profile-pelanggan.update');
+
 // ============== UTAMA =================
 Route::get('/', function () {
     return view('customer/index');
@@ -75,11 +108,6 @@ Route::get('/', function () {
 Route::get('/tentang', function () {
     return view('customer/tentang');
 });
-
-// ============== PRODUK & DETAIL PRODUK =================
-Route::get('/produk', [ProdukController::class, 'indexProdukPelanggan'])->name('produkPelanggan.index'); 
-
-Route::get('/detail-produk/{id}', [ProdukController::class, 'showDetailProduk'])->name('produk.detail');
 
 // ============== TESTIMONI =================
 Route::get('/testimoni', function () {
@@ -91,48 +119,15 @@ Route::get('/kontak', function () {
     return view('customer/kontak');
 });
 
-// ============== KERANJANG =================
-Route::get('/keranjang', function () {
-    return view('customer/keranjang');
-});
-
-// ============== PROFILE =================
-Route::get('/profile', function () {
-    return view('customer/profile');
-});
-
-// ============== LOGIN =================
-
-Route::get('/login-pelanggan', [PelangganAuthController::class, 'showLoginForm'])->name('login-pelanggan');
-
-Route::post('/login-pelanggan', [PelangganAuthController::class, 'login'])->name('pelanggan.login');
-
-Route::middleware([PelangganAuth::class])->group(function () {
-    Route::get('/profile',function () {
-        return view('customer/profile');
-    });
-
-    Route::get('/keranjang',function () {
-        return view('customer/keranjang');
-    });
-});
-
-// ============== SIGNUP =================
-Route::get('/signup-pelanggan', function () {
-    return view('customer/signup-pelanggan');
-});
-
-Route::post('/signup-pelanggan/store', [PelangganController::class, 'storePelanggan'])->name('signup-pelanggan.store');
-
 // ============== lOGOUT =================
 Route::post('/logout', function () { 
     Auth::guard('pelanggan')->logout(); 
-    session()->forget('username'); // Hapus session username
-    session()->forget('email'); // Hapus session username
-    session()->forget('no_telp'); // Hapus session username
-    session()->forget('alamat'); // Hapus session username
-    session()->forget('password'); // Hapus session username
+    session()->forget('id'); 
+    session()->forget('username'); 
+    session()->forget('email'); 
+    session()->forget('no_telp'); 
+    session()->forget('alamat'); 
+    session()->forget('password'); 
+    session()->forget('keranjang');
     return redirect()->route('login-pelanggan'); 
 })->name('pelanggan.logout');
-
-

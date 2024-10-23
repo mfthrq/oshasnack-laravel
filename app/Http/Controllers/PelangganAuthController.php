@@ -29,6 +29,7 @@ class PelangganAuthController extends Controller
             $user = Auth::guard('pelanggan')->user();
     
             // Simpan username ke dalam session
+            session(['id' => $user->id]);
             session(['username' => $user->username]);
             session(['email' => $user->email]);
             session(['no_telp' => $user->no_telp]);
@@ -48,6 +49,7 @@ class PelangganAuthController extends Controller
         Auth::guard('pelanggan')->logout();
         
         // Hapus username dari session
+        $request->session()->forget('id');
         $request->session()->forget('username');
         $request->session()->forget('email');
         $request->session()->forget('no_telp');

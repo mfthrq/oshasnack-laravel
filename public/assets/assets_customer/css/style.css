@@ -18866,7 +18866,7 @@ q .accordion-wrapper .accordion .accordion-header button:focus {
 -------------------------*/
 .single-cart-inner {
   padding: 35px 0;
-  border-bottom: 1px solid #ffffff1f;
+  border-bottom: 1px solid #FEC10E;
   justify-content: space-between;
   transition: background-color 1s ease-in-out;
 }
@@ -19062,7 +19062,7 @@ q .accordion-wrapper .accordion .accordion-header button:focus {
 
 .checkout-box-inner {
   padding: 40px;
-  border: 1px solid #fff1;
+  border: 2px solid #FEC10E;
   border-radius: 5px;
 }
 @media only screen and (max-width: 575px) {
@@ -19112,7 +19112,7 @@ q .accordion-wrapper .accordion .accordion-header button:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #fff1;
+  border-bottom: 2px solid #FEC10E;
 }
 .checkout-box-inner .shipping-location span {
   color: #cacaca;

@@ -7,10 +7,7 @@
     <title>Oshasnack | Keranjang</title>
     <meta name="robots" content="noindex" />
     <meta name="description" content="" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="theme-style-mode" content="1" />
     <!-- 0 == light, 1 == dark -->
 
@@ -41,58 +38,35 @@
                 </div>
             </div>
             <div class="row mt--10 g-5">
-                <!-- card left area start -->
-                <div class="col-xl-8 col-lg-7 col-md-12 col-sm-12">
-                    <!-- start single product cart -->
-                    <div class="row align-items-center transition single-cart-inner">
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-3">
-                            <div class="thumbnail">
-                                <img src="assets/assets_customer/images/cart/1.jpg" alt="">
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-3 col-3">
-                            <div class="discription">
-                                <span class="name">Nighty</span>
-                                <p class="details">Shimmer</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-1 col-md-1 col-sm-1 col-1">
-                            <p class="product-price pr--15">$69.00</p>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-3">
-                            <div class="cart-counter" id="product-5">
-                                <button class="button pl--0">-</button>
-                                <input type="text" class="input" value="1" />
-                                <button class="button pr--0">+</button>
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-sm-2 col-2 remove">
-                            <a class="rts-btn btn-secondary radious-5 " href="#">Hapus</a>
-                        </div>
-                    </div>
+                <div class="col-xl-8 col-lg-7 col-md-12 col-sm-12" id="keranjang-list">
+                    {{-- List Data Keranjang Dari Local Storage --}}
                 </div>
-                <!-- card area left end -->
+
                 <div class="col-xl-4 col-lg-5 col-md-12">
                     <div class="checkout-box">
                         <div class="checkout-box-inner">
                             <!-- shipping check start -->
                             <div class="shipping-check">
-                                <span class="title">Pengiriman</span>
+                                <span class="title fw-bold">Pengiriman</span>
                             </div>
 
                             <div class="shipping-location">
-                                <span class="shipping-to">Pengiriman Ke <br> 
-                                <span class="change-address"><i class="fal fa-map-marker-alt mr--5"></i>[alamat pelanggan]</span>
+                                    <span class="change-address text-white">
+                                        <i class="fal fa-map-marker-alt mr--5"></i>
+                                        {{ session('alamat') }}
+                                    </span>
+                                </span>
                             </div>
 
                             <div class="total-area">
-                                <span class="title">Total</span>
-                                <span class="total-price">$364.00</span>
+                                <h6 class="mb-0">Total</h6>
+                                <span id="total-price" class="total-price">Rp0</span>
                             </div>
                             <!-- total amount area end -->
                         </div>
                         <div class="btn-checkout-area">
-                            <a class="fw-bold rts-btn btn-primary checkout radious-5 w--100 mt--30" href="check-out.html" style="color: #611746;">Pesan</a>
+                            <a class="fw-bold rts-btn btn-primary checkout radious-5 w--100 mt--30"
+                                href="check-out.html" style="color: #611746;">Pesan</a>
                         </div>
                     </div>
 
@@ -135,6 +109,94 @@
 
     <!-- main js -->
     <script src="assets/assets_customer/js/main.js"></script>
+
+    <script>
+        // Fungsi untuk menampilkan produk di keranjang
+        function tampilkanKeranjang() {
+            // Ambil data keranjang dari LocalStorage
+            let keranjang = JSON.parse(localStorage.getItem('keranjang')) || [];
+            let keranjangList = document.getElementById('keranjang-list');
+            let totalHarga = 0;
+
+            if (keranjang.length === 0) {
+                keranjangList.innerHTML = '<p class="alert alert-warning" style="color: #611746; background-color: #FEC10E; border: none;">Keranjang Anda kosong.</p>';
+                document.getElementById('total-price').innerText = 'Rp0';
+                return;
+            }
+
+            // Buat tampilan produk di keranjang
+            keranjangList.innerHTML = keranjang.map(item => {
+                let subtotal = item.harga * item.jumlah; // Hitung subtotal per produk
+                totalHarga += subtotal; // Tambahkan ke total harga
+                return `
+                    <div class="row align-items-center single-cart-inner">
+                        <div class="col-lg-2 col-md-2 col-sm-3 col-3">
+                            <div class="thumbnail p-4" style="background-color: #FEC10E;">
+                                <img src="assets/foto_produk/${item.foto}" alt="${item.nama}">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-3 col-3">
+                            <div class="discription">
+                                <p class="details m-0">${item.nama}</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-1 col-sm-1 col-1">
+                            <p class="product-price pr--15">Rp ${item.harga}</p>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-3">
+                            <div class="cart-counter" id="product-5" style="border: 2px solid #FEC10E;">
+                                <button class="button pl--0" onclick="ubahJumlah(${item.id}, 'kurangi')">-</button>
+                                <input type="text" value="${item.jumlah}" disabled>
+                                <button class="button pr--0" onclick="ubahJumlah(${item.id}, 'tambah')">+</button>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-2 remove">
+                            <button class="rts-btn btn-secondary radious-5" onclick="hapusDariKeranjang(${item.id})">Hapus</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('total-price').innerText = `Rp${totalHarga}`;
+        }
+
+        // Fungsi untuk mengubah jumlah produk di keranjang
+        function ubahJumlah(id, action) {
+            let keranjang = JSON.parse(localStorage.getItem('keranjang')) || [];
+            let produk = keranjang.find(item => item.id === id);
+
+            if (produk) {
+                if (action === 'tambah') {
+                    produk.jumlah += 1;
+                } else if (action === 'kurangi' && produk.jumlah > 1) {
+                    produk.jumlah -= 1;
+                }
+
+                // Simpan perubahan ke LocalStorage
+                localStorage.setItem('keranjang', JSON.stringify(keranjang));
+
+                // Tampilkan ulang keranjang
+                tampilkanKeranjang();
+            }
+        }
+
+        // Fungsi untuk menghapus produk dari keranjang
+        function hapusDariKeranjang(id) {
+            let keranjang = JSON.parse(localStorage.getItem('keranjang')) || [];
+
+            // Filter produk yang tidak dihapus
+            keranjang = keranjang.filter(item => item.id !== id);
+
+            // Simpan perubahan ke LocalStorage
+            localStorage.setItem('keranjang', JSON.stringify(keranjang));
+
+            // Tampilkan ulang keranjang
+            tampilkanKeranjang();
+        }
+
+        // Panggil fungsi untuk menampilkan keranjang saat halaman dimuat
+        window.onload = tampilkanKeranjang;
+    </script>
 </body>
 
 </html>
