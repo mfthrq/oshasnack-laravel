@@ -29,6 +29,19 @@ class PelangganController extends Controller
         return redirect()->route('pelanggan.index')->with('success', 'Data berhasil ditambahkan');
     }
 
+    public function storePelanggan(Request $request)
+    {
+        DB::table('pelanggans')->insert([
+            'email' => $request->email,
+            'username' => $request->username,
+            'no_telp' => $request->no_telp,
+            'alamat' => $request->alamat,
+            'password' => Hash::make($request->password),
+        ]);
+    
+        return redirect()->route('login-pelanggan')->with('success', 'Data berhasil ditambahkan');
+    }
+
     public function edit($id)
     {
         $pelanggan = Pelanggan::find($id); // Cari pelanggan berdasarkan ID

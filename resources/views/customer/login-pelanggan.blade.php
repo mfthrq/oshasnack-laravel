@@ -23,6 +23,13 @@
     <link rel="stylesheet" href="{{ asset('assets/assets_customer/css/vendor/bootstrap.min.css') }}">
     <!-- style css -->
     <link rel="stylesheet" href="{{ asset('assets/assets_customer/css/style.css') }}">
+    <style>
+        .form-control:focus {
+            background-color: initial;
+            box-shadow: none;
+            color: #ffffff;
+        }
+    </style>
 </head>
 
 <body class="rt_bg-secondary">
@@ -42,11 +49,18 @@
                         @endif
                         <div class="mb-5">
                             <label for="exampleInputEmail1" class="form-label">Email Address</label>
-                            <input type="email" id="exampleInputEmail1" name="emailSignIn" class="form-control" required>
+                            <input type="email" id="exampleInputEmail1" name="emailSignIn" class="form-control" placeholder="Masukkan Email" required>
                         </div>
-                        <div class="mb--15">
+                        <div class="mb-5">
                             <label for="exampleInputPassword1" class="form-label">Password</label>
-                            <input type="password" id="exampleInputPassword1" name="loginPassword"  class="form-control" required>
+                            <div class="input-group">
+                                <input type="password" id="exampleInputPassword1" name="loginPassword" placeholder="Masukkan Password" class="form-control" style="height: 60px;">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" onclick="togglePassword()" style="cursor: pointer; background-color: #ffc107; height: 60px; border:#771E56;">
+                                        <i id="eyeIcon" class="fas fa-eye"></i>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                         <p class="mb-4">Belum punya akun? <a class="fw-bold" href="/signup-pelanggan">Signup</a></p>
                         <button type="submit" class="fw-bold rts-btn btn-primary radious-5 mr--15 mb--15" style="color: #771E56;">Login</button>
@@ -88,6 +102,23 @@
 
     <!-- main js -->
     <script src="assets/js/main.js"></script>
+
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('exampleInputPassword1');
+            const eyeIcon = document.getElementById('eyeIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        }
+    </script>
 </body>
 
 </html>

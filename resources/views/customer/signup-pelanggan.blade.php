@@ -7,10 +7,7 @@
     <title>Oshasnack | Signup</title>
     <meta name="robots" content="noindex" />
     <meta name="description" content="" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="theme-style-mode" content="1" />
     <!-- 0 == light, 1 == dark -->
 
@@ -39,29 +36,40 @@
 
     <!-- Start Log-In area -->
     <div class="rts-login-area mt--35 rts-section-gapBottom">
-        <h3 align="center" >Signup</h3>
+        <h3 align="center">Signup</h3>
         <div class="container">
             <div class="row">
                 <div class="col-12 d-flex justify-content-center">
-                    <form class="login-wrapper">
+                    <form action="{{ route('signup-pelanggan.store') }}" method="POST" class="login-wrapper">
+                        @csrf
                         <div class="mb-5">
                             <label for="exampleInputEmail1" class="form-label">Email Address</label>
-                            <input type="email" id="exampleInputEmail1" name="email" placeholder="Masukkan Email">
+                            <input type="email" id="exampleInputEmail1" name="email" placeholder="Masukkan Email"
+                                required>
                         </div>
                         <div class="mb-5">
                             <label for="exampleInputEmail1" class="form-label">Nama Lengkap</label>
-                            <input type="text" id="exampleInputEmail1" name="username" placeholder="Masukkan Nama Lengkap">
+                            <input type="text" id="exampleInputEmail1" name="username"
+                                placeholder="Masukkan Nama Lengkap" required>
                         </div>
                         <div class="mb-5">
                             <label for="exampleInputEmail1" class="form-label">Nomor Telepon</label>
-                            <input type="number" id="exampleInputEmail1" name="no_telp" placeholder="Masukkan Nomor Telepon">
+                            <input type="number" id="exampleInputEmail1" name="no_telp"
+                                placeholder="Masukkan Nomor Telepon" required>
+                        </div>
+                        <div class="mb-5">
+                            <label for="exampleInputEmail1" class="form-label">Alamat</label>
+                            <input type="text" id="exampleInputEmail1" name="alamat" placeholder="Masukkan Alamat"
+                                required>
                         </div>
                         <div class="mb-5">
                             <label for="exampleInputPassword1" class="form-label">Password</label>
                             <div class="input-group">
-                                <input type="password" id="exampleInputPassword1" name="password" placeholder="Masukkan Password" class="form-control" style="height: 60px;">
+                                <input type="password" id="exampleInputPassword1" name="password"
+                                    placeholder="Masukkan Password" class="form-control" style="height: 60px;" required>
                                 <div class="input-group-append">
-                                    <span class="input-group-text" onclick="togglePassword()" style="cursor: pointer; background-color: #ffc107; height: 60px; border:#771E56;">
+                                    <span class="input-group-text" onclick="togglePassword()"
+                                        style="cursor: pointer; background-color: #ffc107; height: 60px; border:#771E56;">
                                         <i id="eyeIcon" class="fas fa-eye"></i>
                                     </span>
                                 </div>
@@ -70,16 +78,22 @@
                         <div class="mb-5">
                             <label for="exampleInputPassword2" class="form-label">Konfirmasi Password</label>
                             <div class="input-group">
-                                <input type="password" id="exampleInputPassword2" name="konfirmasiPassword" placeholder="Konfirmasi Password" class="form-control" style="height: 60px;">
+                                <input type="password" id="exampleInputPassword2" name="konfirmasiPassword"
+                                    placeholder="Konfirmasi Password" class="form-control" style="height: 60px;"
+                                    required>
                                 <div class="input-group-append">
-                                    <span class="input-group-text" onclick="toggleKonfirmPassword()" style="cursor: pointer; background-color: #ffc107; height: 60px; border:#771E56;">
+                                    <span class="input-group-text" onclick="toggleKonfirmPassword()"
+                                        style="cursor: pointer; background-color: #ffc107; height: 60px; border:#771E56;">
                                         <i id="eyeIcon2" class="fas fa-eye"></i>
                                     </span>
                                 </div>
                             </div>
                         </div>
+                        <div id="passwordError" class="fw-bold alert alert-danger bg-warning" style="display: none;">Password dan
+                            Konfirmasi Password tidak sama.</div>
                         <p class="mb-4">Sudah punya akun? <a class="fw-bold" href="/login-pelanggan">Login</a></p>
-                        <button type="submit" class="fw-bold rts-btn btn-primary radious-5 mr--15 mb--15" style="color: #771E56;">Signup</button>
+                        <button type="submit" class="fw-bold rts-btn btn-primary radious-5 mr--15 mb--15"
+                            style="color: #771E56;">Signup</button>
                     </form>
                 </div>
             </div>
@@ -120,10 +134,27 @@
     <script src="assets/js/main.js"></script>
 
     <script>
+        // Event listener untuk memeriksa kesamaan password saat pengguna mengetik
+        document.getElementById("exampleInputPassword1").addEventListener("input", checkPasswords);
+        document.getElementById("exampleInputPassword2").addEventListener("input", checkPasswords);
+
+        function checkPasswords() {
+            var password = document.getElementById("exampleInputPassword1").value;
+            var confirmPassword = document.getElementById("exampleInputPassword2").value;
+            var passwordError = document.getElementById("passwordError");
+
+            // Cek apakah password dan konfirmasi password cocok
+            if (password !== confirmPassword) {
+                passwordError.style.display = "block"; // Tampilkan pesan kesalahan
+            } else {
+                passwordError.style.display = "none"; // Sembunyikan pesan kesalahan
+            }
+        }
+
         function togglePassword() {
             const passwordInput = document.getElementById('exampleInputPassword1');
             const eyeIcon = document.getElementById('eyeIcon');
-            
+
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
                 eyeIcon.classList.remove('fa-eye');
@@ -138,7 +169,7 @@
         function toggleKonfirmPassword() {
             const passwordInput = document.getElementById('exampleInputPassword2');
             const eyeIcon = document.getElementById('eyeIcon2');
-            
+
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
                 eyeIcon.classList.remove('fa-eye');

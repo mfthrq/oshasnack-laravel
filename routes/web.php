@@ -117,6 +117,14 @@ Route::middleware([PelangganAuth::class])->group(function () {
     });
 });
 
+// ============== SIGNUP =================
+Route::get('/signup-pelanggan', function () {
+    return view('customer/signup-pelanggan');
+});
+
+Route::post('/signup-pelanggan/store', [PelangganController::class, 'storePelanggan'])->name('signup-pelanggan.store');
+
+// ============== lOGOUT =================
 Route::post('/logout', function () { 
     Auth::guard('pelanggan')->logout(); 
     session()->forget('username'); // Hapus session username
@@ -128,7 +136,3 @@ Route::post('/logout', function () {
 })->name('pelanggan.logout');
 
 
-// ============== SIGNUP =================
-Route::get('/signup-pelanggan', function () {
-    return view('customer/signup-pelanggan');
-});

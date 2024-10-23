@@ -31,7 +31,7 @@
     @include('layouts.navbar-customer')
 
     <!-- team details about area -->
-    <div class="rts-team-details-area rts-section-gapBottom mt--35 about-shape">
+    <div class="rts-team-details-area rts-section-gapBottom mt--35">
         <div class="container">
             <div class="row g-5 align-items-xxl-center align-items-lg-start">
                 <!-- start details arae -->
