@@ -18,6 +18,7 @@ class Produk extends Model
         'deskripsi',
         'komposisi',
         'keunggulan',
+        'harga',
         'foto_produk',
     ];
 }

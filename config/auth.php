@@ -36,9 +36,9 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'pelanggan' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'pelanggans',
         ],
 
         'admin' => [ // Add this section if it's not present
@@ -65,9 +65,9 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'pelanggans' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\Pelanggan::class,
         ],
 
         'admins' => [ // Add this section if it's not present

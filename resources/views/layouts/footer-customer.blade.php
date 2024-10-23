@@ -7,7 +7,7 @@
               <div class="footer-left-wrapper">
                 <a href="#"
                   ><img
-                    src="assets/assets_customer/images/logo_oshasnack.jpg"
+                    src="{{ asset('assets/assets_customer/images/logo_oshasnack.jpg')}}"
                     alt="Nft_logo"
                     data-sal-delay="150"
                     data-sal-duration="800"

@@ -6284,7 +6284,7 @@ a:focus,
 a:active {
   text-decoration: none;
   outline: none;
-  color: var(--color-primary);
+  color: #FEC10E;
 }
 
 a:focus {
@@ -16203,7 +16203,6 @@ caregories style
   align-items: center;
   padding: 12px 15px;
   background: var(--grtadient-three);
-  max-width: max-content;
   border-radius: 5px;
   border: 2px solid var(--color-border-one);
   margin-right: 20px;

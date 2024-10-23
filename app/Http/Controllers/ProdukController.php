@@ -14,14 +14,30 @@ class ProdukController extends Controller
         return view('admin.produk-admin', compact('produks'));
     }
 
+    public function indexProdukPelanggan()
+    {
+        $produks = Produk::all();
+        return view('customer.produk', compact('produks'));
+    }
+
+    public function showDetailProduk($id)
+    {
+        // Cari produk berdasarkan id
+        $produk = Produk::findOrFail($id);
+
+        // Kirim data produk ke view
+        return view('customer/detail-produk', compact('produk'));
+    }
+
     public function store(Request $request)
     {
         $request->validate([
             'nama' => 'required|string|max:255',
-            'deskripsi' => 'required|string|max:255',
+            'deskripsi' => 'required|string|max:500',
             'komposisi' => 'required|string|max:255',
             'keunggulan' => 'required|string|max:255',
-            'foto_produk' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'harga' => 'required|string|max:255',
+            'foto_produk' => 'required|image|mimes:jpg,jpeg,png|max:5048',
         ]);
     
         // Mengambil file gambar
@@ -37,6 +53,7 @@ class ProdukController extends Controller
             'deskripsi' => $request->deskripsi,
             'komposisi' => $request->komposisi,
             'keunggulan' => $request->keunggulan,
+            'harga' => $request->harga,
             'foto_produk' => $filename,
         ]);
 
@@ -66,6 +83,7 @@ class ProdukController extends Controller
             'deskripsi' => 'required|string|max:255',
             'komposisi' => 'required|string|max:255',
             'keunggulan' => 'required|string|max:255',
+            'harga' => 'required|string|max:255',
         ]);
     
         // Memperbarui data produk
@@ -73,6 +91,7 @@ class ProdukController extends Controller
         $produk->deskripsi = $request->deskripsi;
         $produk->komposisi = $request->komposisi;
         $produk->keunggulan = $request->keunggulan;
+        $produk->harga = $request->harga;
         
         $produk->save();
     

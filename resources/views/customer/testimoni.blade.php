@@ -10,19 +10,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-style-mode" content="1"> <!-- 0 == light, 1 == dark -->
 
-    <!-- Favicon -->
-    <link
-      rel="shortcut icon"
-      type="image/x-icon"
-      href="assets/assets_customer/images/logo_oshasnack.jpg"
-    />
-    <link rel="stylesheet" href="assets/assets_customer/css/plugins/gordita.css">
-    <link rel="stylesheet" href="assets/assets_customer/css/plugins/fontawesome-pro-icons.css">
-    <link rel="stylesheet" href="assets/assets_customer/css/vendor/swiper.css">
-    <link rel="stylesheet" href="assets/assets_customer/css/plugins/unicons.css">
-    <link rel="stylesheet" href="assets/assets_customer/css/vendor/bootstrap.min.css">
+    <link rel="shortcut icon" type="image/x-icon"
+        href="{{ asset('assets/assets_customer/images/logo_oshasnack.jpg') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/assets_customer/css/plugins/gordita.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/assets_customer/css/plugins/fontawesome-pro-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/assets_customer/css/vendor/swiper.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/assets_customer/css/plugins/unicons.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/assets_customer/css/vendor/bootstrap.min.css') }}">
     <!-- style css -->
-    <link rel="stylesheet" href="assets/assets_customer/css/style.css">
+    <link rel="stylesheet" href="{{ asset('assets/assets_customer/css/style.css') }}">
 </head>
 
 <body class="rt_bg-secondary">

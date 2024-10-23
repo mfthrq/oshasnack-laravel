@@ -326,6 +326,7 @@
                             <th style="width: 20%">Deskripsi</th>
                             <th style="width: 20%">Komposisi</th>
                             <th style="width: 20%">Keunggulan</th>
+                            <th style="width: 20%">Harga</th>
                             <th style="width: 20%">Foto</th>
                             <th style="width: 20%">Aksi</th>
                         </tr>
@@ -340,14 +341,30 @@
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $produk->nama }}</td>
-                                    <td>{{ $produk->deskripsi }}</td>
-                                    <td>{{ $produk->komposisi }}</td>
-                                    <td>{{ $produk->keunggulan }}</td>
+                                    <td>
+                                        <div style="max-height: 100px; overflow-y: auto;">
+                                            {{ $produk->deskripsi }}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="max-height: 100px; overflow-y: auto;">
+                                            {{ $produk->komposisi }}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="max-height: 100px; overflow-y: auto;">
+                                            {{ $produk->keunggulan }}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="max-height: 100px; overflow-y: auto;">
+                                            {{ $produk->harga }}
+                                        </div>
+                                    </td>
                                     <td>
                                         <img src="{{ asset('assets/foto_produk/' . $produk->foto_produk) }}" alt="Foto Produk" width="100">
                                     </td>
                                     <td class="d-flex">
-                                        <!-- Tambahkan tombol aksi di sini, misalnya Edit dan Hapus -->
                                         <form action="{{ route('produk.destroy', $produk->id) }}" method="POST" onsubmit="return confirmDelete();">
                                             @csrf
                                             @method('DELETE')
@@ -359,6 +376,7 @@
                                         data-deskripsi="{{ $produk->deskripsi }}" 
                                         data-komposisi="{{ $produk->komposisi }}" 
                                         data-keunggulan="{{ $produk->keunggulan }}" 
+                                        data-harga="{{ $produk->harga }}" 
                                         data-foto_produk="{{ $produk->foto_produk }}"
                                         style="background-color: #FEC10F;">Edit</button>
                                     </td>
@@ -412,27 +430,33 @@
                     <div class="mb-3">
                         <label for="nama" class="form-label">Nama</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input placeholder="Masukkan Nama Produk" type="nama" name="nama" class="form-control" required />
+                            <input type="text" placeholder="Masukkan Nama Produk" type="nama" name="nama" class="form-control" required />
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="deskripsi" class="form-label">Deskripsi</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <textarea placeholder="Masukkan Deskripsi Produk" name="deskripsi" class="form-control" rows="4" required ></textarea>
+                            <textarea type="text" placeholder="Masukkan Deskripsi Produk" name="deskripsi" class="form-control" rows="4" required ></textarea>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="komposisi" class="form-label">Komposisi</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input placeholder="Masukkan Komposisi Produk" type="text" name="komposisi" class="form-control" required />
+                            <input type="text" placeholder="Masukkan Komposisi Produk" type="text" name="komposisi" class="form-control" required />
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="keunggulan" class="form-label">Keunggulan</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input class="form-control" name="keunggulan" placeholder="Masukkan Keunggulan Produk" required />
+                            <input type="text" class="form-control" name="keunggulan" placeholder="Masukkan Keunggulan Produk" required />
                         </div>
-                    </div>                    
+                    </div> 
+                    <div class="mb-3">
+                        <label for="harga" class="form-label">Harga</label>
+                        <div class="geex-content__form__single__box mb-20">
+                            <input type="number" class="form-control" name="harga" placeholder="Masukkan Harga Produk" required />
+                        </div>
+                    </div>                       
                     <div class="mb-3">
                         <label for="foto_produk" class="form-label">Foto Produk</label>
                         <div class="geex-content__form__single__box mb-20">
@@ -464,27 +488,33 @@
                     <div class="mb-3">
                         <label for="nama" class="form-label">Nama</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input placeholder="Masukkan Nama Produk" id="editNama" type="nama" name="nama" class="form-control" required />
+                            <input type="text" placeholder="Masukkan Nama Produk" id="editNama" type="nama" name="nama" class="form-control" required />
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="deskripsi" class="form-label">Deskripsi</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <textarea placeholder="Masukkan Deskripsi Produk" id="editDeskripsi" name="deskripsi" class="form-control" rows="4" required ></textarea>
+                            <textarea type="text" placeholder="Masukkan Deskripsi Produk" id="editDeskripsi" name="deskripsi" class="form-control" rows="4" required ></textarea>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="komposisi" class="form-label">Komposisi</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input placeholder="Masukkan Komposisi Produk" id="editKomposisi" type="text" name="komposisi" class="form-control" required />
+                            <input type="text" placeholder="Masukkan Komposisi Produk" id="editKomposisi" type="text" name="komposisi" class="form-control" required />
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="keunggulan" class="form-label">Keunggulan</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input class="form-control" id="editKeunggulan" type="text" name="keunggulan" placeholder="Masukkan Keunggulan Produk" required />
+                            <input type="text" class="form-control" id="editKeunggulan" type="text" name="keunggulan" placeholder="Masukkan Keunggulan Produk" required />
                         </div>
                     </div> 
+                    <div class="mb-3">
+                        <label for="harga" class="form-label">Harga</label>
+                        <div class="geex-content__form__single__box mb-20">
+                            <input type="number" class="form-control" id="editHarga" name="harga" placeholder="Masukkan Harga Produk" required />
+                        </div>
+                    </div>  
                     <button type="submit" class="geex-btn geex-btn--primary">Perbarui</button>
                 </form>
             </div>
@@ -500,6 +530,7 @@
             const deskripsi = this.getAttribute('data-deskripsi');
             const komposisi = this.getAttribute('data-komposisi');
             const keunggulan = this.getAttribute('data-keunggulan');
+            const harga = this.getAttribute('data-harga');
 
             // Set value input di modal
             document.getElementById('editId').value = id;
@@ -507,6 +538,7 @@
             document.getElementById('editDeskripsi').value = deskripsi;
             document.getElementById('editKomposisi').value = komposisi;
             document.getElementById('editKeunggulan').value = keunggulan;
+            document.getElementById('editHarga').value = harga;
 
             // Update action URL form edit
             document.getElementById('editForm').action = `/admin/produk/${id}`; // Ganti sesuai route Anda

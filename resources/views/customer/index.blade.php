@@ -13,22 +13,15 @@
     <meta name="theme-style-mode" content="1" />
     <!-- 0 == light, 1 == dark -->
 
-    <!-- Favicon -->
-    <link
-      rel="shortcut icon"
-      type="image/x-icon"
-      href="assets/assets_customer/images/logo_oshasnack.jpg"
-    />
-    <link rel="stylesheet" href="assets/assets_customer/css/plugins/gordita.css" />
-    <link
-      rel="stylesheet"
-      href="assets/assets_customer/css/plugins/fontawesome-pro-icons.css"
-    />
-    <link rel="stylesheet" href="assets/assets_customer/css/vendor/swiper.css" />
-    <link rel="stylesheet" href="assets/assets_customer/css/plugins/unicons.css" />
-    <link rel="stylesheet" href="assets/assets_customer/css/vendor/bootstrap.min.css" />
+    <link rel="shortcut icon" type="image/x-icon"
+        href="{{ asset('assets/assets_customer/images/logo_oshasnack.jpg') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/assets_customer/css/plugins/gordita.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/assets_customer/css/plugins/fontawesome-pro-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/assets_customer/css/vendor/swiper.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/assets_customer/css/plugins/unicons.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/assets_customer/css/vendor/bootstrap.min.css') }}">
     <!-- style css -->
-    <link rel="stylesheet" href="assets/assets_customer/css/style.css" />
+    <link rel="stylesheet" href="{{ asset('assets/assets_customer/css/style.css') }}">
   </head>
 
   <body class="rt_bg-secondary">
@@ -270,14 +263,6 @@
               <div class="product-discription">
                 <div class="product-left">
                   <h5 class="title">Keju Goreng Original</h5>
-                  <span class="deg" style="color: #fdc00d"> Enak, Kriuk, Gurih-gurih Gitu! </span>
-                  <a
-                    class="rts-btn btn-secondary radious-5"
-                    href="#"
-                    >Detail Produk</a
-                  >
-                </div>
-                <div class="product-right">
                   <h5 class="price">Rp20.000</h5>
                 </div>
               </div>
@@ -303,14 +288,6 @@
               <div class="product-discription">
                 <div class="product-left">
                   <h5 class="title">Keju Goreng Pedas</h5>
-                  <span class="deg" style="color: #fdc00d"> Gurih, Kriuk, Lumayan Pedas! </span>
-                  <a
-                    class="rts-btn btn-secondary radious-5"
-                    href="#"
-                    >Detail Produk</a
-                  >
-                </div>
-                <div class="product-right">
                   <h5 class="price">Rp20.000</h5>
                 </div>
               </div>
@@ -336,14 +313,6 @@
               <div class="product-discription">
                 <div class="product-left">
                   <h5 class="title">Stik Keju Original</h5>
-                  <span class="deg" style="color: #fdc00d"> Kriuk, Gurih, Enak! </span>
-                  <a
-                    class="rts-btn btn-secondary radious-5"
-                    href="#"
-                    >Detail Produk</a
-                  >
-                </div>
-                <div class="product-right">
                   <h5 class="price">Rp20.000</h5>
                 </div>
               </div>
