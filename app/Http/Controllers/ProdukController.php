@@ -84,6 +84,7 @@ class ProdukController extends Controller
             'komposisi' => 'required|string|max:255',
             'keunggulan' => 'required|string|max:255',
             'harga' => 'required|string|max:255',
+            'foto_produk' => 'nullable|image|mimes:jpg,jpeg,png|max:5048',
         ]);
     
         // Memperbarui data produk
@@ -93,6 +94,25 @@ class ProdukController extends Controller
         $produk->keunggulan = $request->keunggulan;
         $produk->harga = $request->harga;
         
+        // Jika ada file gambar baru yang diupload
+        if ($request->hasFile('foto_produk')) {
+            // Menghapus gambar lama jika ada
+            if ($produk->foto_produk) {
+                $oldFilePath = public_path('assets/foto_produk/' . $produk->foto_produk);
+                if (file_exists($oldFilePath)) {
+                    unlink($oldFilePath);
+                }
+            }
+
+            // Mengambil file gambar baru
+            $file = $request->file('foto_produk');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('assets/foto_produk'), $filename);
+
+            // Update foto_produk dengan nama file baru
+            $produk->foto_produk = $filename;
+        }
+
         $produk->save();
     
         // Redirect dengan pesan sukses

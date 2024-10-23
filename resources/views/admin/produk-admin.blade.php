@@ -120,7 +120,8 @@
                                 <a href="#" class="geex-header__menu__link geex-customizer__btn--ltr">LTR Demo</a>
                             </li>
                             <li class="geex-header__menu__item">
-                                <a href="#" class="geex-header__menu__link geex-customizer__btn--rtl">RTL Demo</a>
+                                <a href="#" class="geex-header__menu__link geex-customizer__btn--rtl">RTL
+                                    Demo</a>
                             </li>
                         </ul>
                     </li>
@@ -362,30 +363,32 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <img src="{{ asset('assets/foto_produk/' . $produk->foto_produk) }}" alt="Foto Produk" width="100">
+                                        <img src="{{ asset('assets/foto_produk/' . $produk->foto_produk) }}"
+                                            alt="Foto Produk" width="100">
                                     </td>
                                     <td class="d-flex">
-                                        <form action="{{ route('produk.destroy', $produk->id) }}" method="POST" onsubmit="return confirmDelete();">
+                                        <form action="{{ route('produk.destroy', $produk->id) }}" method="POST"
+                                            onsubmit="return confirmDelete();">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="geex-btn geex-btn--danger"> Hapus</button>
                                         </form>
-                                        <button class="ms-2 geex-btn edit-btn" data-bs-toggle="modal" data-bs-target="#formModalEdit" 
-                                        data-id="{{ $produk->id }}" 
-                                        data-nama="{{ $produk->nama }}" 
-                                        data-deskripsi="{{ $produk->deskripsi }}" 
-                                        data-komposisi="{{ $produk->komposisi }}" 
-                                        data-keunggulan="{{ $produk->keunggulan }}" 
-                                        data-harga="{{ $produk->harga }}" 
-                                        data-foto_produk="{{ $produk->foto_produk }}"
-                                        style="background-color: #FEC10F;">Edit</button>
+                                        <button class="ms-2 geex-btn edit-btn" data-bs-toggle="modal"
+                                            data-bs-target="#formModalEdit" data-id="{{ $produk->id }}"
+                                            data-nama="{{ $produk->nama }}"
+                                            data-deskripsi="{{ $produk->deskripsi }}"
+                                            data-komposisi="{{ $produk->komposisi }}"
+                                            data-keunggulan="{{ $produk->keunggulan }}"
+                                            data-harga="{{ $produk->harga }}"
+                                            data-foto_produk="{{ $produk->foto_produk }}"
+                                            style="background-color: #FEC10F;">Edit</button>
                                     </td>
                                 </tr>
                             @endforeach
                         @endif
                     </tbody>
                 </table>
-            </div>            
+            </div>
         </div>
     </main>
 
@@ -396,7 +399,7 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.27.0/dist/apexcharts.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.6.6/dragula.min.js" referrerpolicy="origin"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
-    
+
     <!-- SweetAlert JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -425,43 +428,49 @@
             </div>
             <div class="modal-body">
                 <!-- Form untuk input data produk -->
-                <form action="{{ route('produk.store') }}" method="POST" id="myForm" enctype="multipart/form-data">
+                <form action="{{ route('produk.store') }}" method="POST" id="myForm"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
                         <label for="nama" class="form-label">Nama</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input type="text" placeholder="Masukkan Nama Produk" type="nama" name="nama" class="form-control" required />
+                            <input type="text" placeholder="Masukkan Nama Produk" type="nama" name="nama"
+                                class="form-control" required />
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="deskripsi" class="form-label">Deskripsi</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <textarea type="text" placeholder="Masukkan Deskripsi Produk" name="deskripsi" class="form-control" rows="4" required ></textarea>
+                            <textarea type="text" placeholder="Masukkan Deskripsi Produk" name="deskripsi" class="form-control"
+                                rows="4" required></textarea>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="komposisi" class="form-label">Komposisi</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input type="text" placeholder="Masukkan Komposisi Produk" type="text" name="komposisi" class="form-control" required />
+                            <input type="text" placeholder="Masukkan Komposisi Produk" type="text"
+                                name="komposisi" class="form-control" required />
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="keunggulan" class="form-label">Keunggulan</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input type="text" class="form-control" name="keunggulan" placeholder="Masukkan Keunggulan Produk" required />
+                            <input type="text" class="form-control" name="keunggulan"
+                                placeholder="Masukkan Keunggulan Produk" required />
                         </div>
-                    </div> 
+                    </div>
                     <div class="mb-3">
                         <label for="harga" class="form-label">Harga</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input type="number" class="form-control" name="harga" placeholder="Masukkan Harga Produk" required />
+                            <input type="number" class="form-control" name="harga"
+                                placeholder="Masukkan Harga Produk" required />
                         </div>
-                    </div>                       
+                    </div>
                     <div class="mb-3">
                         <label for="foto_produk" class="form-label">Foto Produk</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input type="file" class="form-control" name="foto_produk" 
-                                   placeholder="Masukkan Foto Produk" required accept="image/*">
+                            <input type="file" class="form-control" name="foto_produk"
+                                placeholder="Masukkan Foto Produk" required accept="image/*">
                         </div>
                     </div>
                     <button type="submit" class="geex-btn geex-btn--primary">Submit</button>
@@ -481,40 +490,53 @@
             </div>
             <div class="modal-body">
                 <!-- Form untuk input data pelanggan -->
-                <form method="POST" id="editForm">
+                <form method="POST" id="editForm" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <input type="hidden" name="id" id="editId">
                     <div class="mb-3">
                         <label for="nama" class="form-label">Nama</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input type="text" placeholder="Masukkan Nama Produk" id="editNama" type="nama" name="nama" class="form-control" required />
+                            <input type="text" placeholder="Masukkan Nama Produk" id="editNama" type="nama"
+                                name="nama" class="form-control" required />
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="deskripsi" class="form-label">Deskripsi</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <textarea type="text" placeholder="Masukkan Deskripsi Produk" id="editDeskripsi" name="deskripsi" class="form-control" rows="4" required ></textarea>
+                            <textarea type="text" placeholder="Masukkan Deskripsi Produk" id="editDeskripsi" name="deskripsi"
+                                class="form-control" rows="4" required></textarea>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="komposisi" class="form-label">Komposisi</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input type="text" placeholder="Masukkan Komposisi Produk" id="editKomposisi" type="text" name="komposisi" class="form-control" required />
+                            <input type="text" placeholder="Masukkan Komposisi Produk" id="editKomposisi"
+                                type="text" name="komposisi" class="form-control" required />
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="keunggulan" class="form-label">Keunggulan</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input type="text" class="form-control" id="editKeunggulan" type="text" name="keunggulan" placeholder="Masukkan Keunggulan Produk" required />
+                            <input type="text" class="form-control" id="editKeunggulan" type="text"
+                                name="keunggulan" placeholder="Masukkan Keunggulan Produk" required />
                         </div>
-                    </div> 
+                    </div>
                     <div class="mb-3">
                         <label for="harga" class="form-label">Harga</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input type="number" class="form-control" id="editHarga" name="harga" placeholder="Masukkan Harga Produk" required />
+                            <input type="number" class="form-control" id="editHarga" name="harga"
+                                placeholder="Masukkan Harga Produk" required />
                         </div>
-                    </div>  
+                    </div>
+                    <div class="mb-3">
+                        <label for="foto_produk" class="form-label">Foto Produk</label>
+                        <div class="geex-content__form__single__box mb-20">
+                            <input type="file" class="form-control" id="editFotoProduk" name="foto_produk">
+                        </div>
+                        <!-- Preview gambar yang sedang digunakan -->
+                        <img id="currentFotoProduk" src="" alt="Foto Produk" width="100" class="mt-2">
+                    </div>
                     <button type="submit" class="geex-btn geex-btn--primary">Perbarui</button>
                 </form>
             </div>
@@ -531,6 +553,7 @@
             const komposisi = this.getAttribute('data-komposisi');
             const keunggulan = this.getAttribute('data-keunggulan');
             const harga = this.getAttribute('data-harga');
+            const foto_produk = this.getAttribute('data-foto_produk');
 
             // Set value input di modal
             document.getElementById('editId').value = id;
@@ -540,8 +563,11 @@
             document.getElementById('editKeunggulan').value = keunggulan;
             document.getElementById('editHarga').value = harga;
 
+            // Set src dari gambar saat ini
+            document.getElementById('currentFotoProduk').src = `/assets/foto_produk/${foto_produk}`;
+
             // Update action URL form edit
-            document.getElementById('editForm').action = `/admin/produk/${id}`; // Ganti sesuai route Anda
+            document.getElementById('editForm').action = `/admin/produk/${id}`;
         });
     });
 </script>

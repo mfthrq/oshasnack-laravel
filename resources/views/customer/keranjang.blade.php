@@ -130,18 +130,18 @@
                 totalHarga += subtotal; // Tambahkan ke total harga
                 return `
                     <div class="row align-items-center single-cart-inner">
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-3">
+                        <div class="col-lg-3 col-md-2 col-sm-3 col-3">
                             <div class="thumbnail p-4" style="background-color: #FEC10E;">
                                 <img src="assets/foto_produk/${item.foto}" alt="${item.nama}">
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-4 col-sm-3 col-3">
+                        <div class="col-lg-2 col-md-4 col-sm-3 col-3">
                             <div class="discription">
                                 <p class="details m-0">${item.nama}</p>
                             </div>
                         </div>
                         <div class="col-lg-2 col-md-1 col-sm-1 col-1">
-                            <p class="product-price pr--15">Rp ${item.harga}</p>
+                            <p class="product-price pr--15">Rp${Number(item.harga).toLocaleString('id-ID')}</p>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-3">
                             <div class="cart-counter" id="product-5" style="border: 2px solid #FEC10E;">
@@ -157,7 +157,7 @@
                 `;
             }).join('');
 
-            document.getElementById('total-price').innerText = `Rp${totalHarga}`;
+            document.getElementById('total-price').innerText = `Rp${Number(totalHarga).toLocaleString('id-ID')}`;
         }
 
         // Fungsi untuk mengubah jumlah produk di keranjang

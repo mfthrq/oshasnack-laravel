@@ -101,7 +101,7 @@
                             Kirimkan Kami Pesan
                         </h3>
                         <div id="form-messages"></div>
-                        <form id="contact-form" method="post" action="mail.php">
+                        <form id="contact-form">
                             <div class="row g-5">
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                                     <div class="form-group" data-sal-delay="300" data-sal-duration="800" data-sal="slide-up">
@@ -112,7 +112,7 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                                     <div class="form-group" data-sal-delay="400" data-sal-duration="800" data-sal="slide-up">
                                         <label for="contact-names">Email</label>
-                                        <input class="form-control" placeholder="Masukan Alamat Email" name="contact-email" id="contact-names" type="email" required>
+                                        <input class="form-control" placeholder="Masukan Alamat Email" name="contact-email" id="contact-email" type="email" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 mt--15">
@@ -125,7 +125,7 @@
                             <div class="row mt--20">
                                 <div class="col-12">
                                     <div class="text-start" data-sal-delay="300" data-sal-duration="800" data-sal="slide-up">
-                                        <a id="connect-wallets" href="#" class="fw-bold rts-btn btn-primary" style="color: #771e56;">Kirim</a>
+                                        <button id="send-whatsapp" class="fw-bold rts-btn btn-primary" style="color: #771e56;">Kirim</button>
                                     </div>
                                 </div>
                             </div>
@@ -181,6 +181,31 @@
 
     <!-- main js -->
     <script src="assets/assets_customer/js/main.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('send-whatsapp').addEventListener('click', function(event) {
+                event.preventDefault();
+    
+                var name = document.getElementById('contact-name').value;
+                var email = document.getElementById('contact-email').value;
+                var message = document.getElementById('contact-message').value;
+    
+                if (name === "" || email === "" || message === "") {
+                    alert("Harap isi semua field sebelum mengirim pesan.");
+                    return;
+                }
+    
+                var whatsappMessage = "Halo, nama saya " + name + ". Email saya: " + email + ". Saya ingin mengirim pesan: " + message;
+                var phoneNumber = "6285158995655"; // Nomor WhatsApp tujuan
+                var whatsappURL = "https://api.whatsapp.com/send?phone=" + phoneNumber + "&text=" + encodeURIComponent(whatsappMessage);
+    
+                window.open(whatsappURL, '_blank');
+            });
+        });
+    </script>
+    
+    
 </body>
 
 </html>

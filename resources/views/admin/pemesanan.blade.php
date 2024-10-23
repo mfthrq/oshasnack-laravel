@@ -501,13 +501,14 @@
                             <input placeholder="Tanggal Pemesanan" type="datetime-local" id="editTanggalPemesanan"  name="tanggal_pemesanan" class="form-control" required />
                         </div>
                     </div>
-                    {{-- <div class="mb-3">
+                    <div class="mb-3">
                         <label for="bukti_transaksi" class="form-label">Bukti Transaksi</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input type="file" class="form-control" id="editBuktiTransaksi"  name="bukti_transaksi"
-                                placeholder="Masukkan Bukti Transaksi">
+                            <input type="file" class="form-control" id="editBuktiTransaksi" name="bukti_transaksi">
                         </div>
-                    </div> --}}
+                        <!-- Preview gambar yang sedang digunakan -->
+                        <img id="currentBuktiTransaksi" src="" alt="Bukti Transaksi" width="100" class="mt-2">
+                    </div>
                     <div class="mb-3">
                         <label for="status" class="form-label">Status</label>
                         <div class="geex-content__form__single__box mb-20">
@@ -533,7 +534,7 @@
             const username = this.getAttribute('data-username');
             const no_telp = this.getAttribute('data-no_telp');
             const tanggal_pemesanan = this.getAttribute('data-tanggal_pemesanan');
-            // const bukti_transaksi = this.getAttribute('data-bukti_transaksi');
+            const bukti_transaksi = this.getAttribute('data-bukti_transaksi');
             const status = this.getAttribute('data-status');
 
             // Set value input di modal
@@ -541,8 +542,10 @@
             document.getElementById('editUsername').value = username;
             document.getElementById('editNoTelp').value = no_telp;
             document.getElementById('editTanggalPemesanan').value = tanggal_pemesanan;
-            // document.getElementById('editBuktiTransaksi').value = bukti_transaksi;
             document.getElementById('editStatus').value = status;
+
+            // Set src dari gambar saat ini
+            document.getElementById('currentBuktiTransaksi').src = `/assets/bukti_transaksi/${bukti_transaksi}`;
 
             // Update action URL form edit
             document.getElementById('editForm').action = `/admin/pemesanan/${id}`;

@@ -39,7 +39,7 @@ class PemesananController extends Controller
             'username' => 'required|string|max:255',
             'no_telp' => 'required|string|max:15',
             'tanggal_pemesanan' => 'required|date',
-            'bukti_transaksi' => 'required|image|mimes:jpg,jpeg,png|max:2048', // Validasi file gambar
+            'bukti_transaksi' => 'required|image|mimes:jpg,jpeg,png|max:5048', // Validasi file gambar
             'status' => 'required|string',
         ]);
     
@@ -84,6 +84,7 @@ class PemesananController extends Controller
             'no_telp' => 'required|string',
             'tanggal_pemesanan' => 'required|date_format:Y-m-d\TH:i', // Menyesuaikan dengan input datetime-local
             'status' => 'required|in:Diverifikasi,Berhasil,Gagal',
+            'bukti_transaksi' => 'nullable|image|mimes:jpg,jpeg,png|max:5048',
         ]);
     
         // Memperbarui data pemesanan
@@ -91,24 +92,25 @@ class PemesananController extends Controller
         $pemesanan->no_telp = $request->no_telp;
         $pemesanan->tanggal_pemesanan = $request->tanggal_pemesanan;
         $pemesanan->status = $request->status;
-    
-        // // Jika ada file bukti transaksi yang di-upload
-        // if ($request->hasFile('bukti_transaksi')) {
-        //     // Simpan gambar baru ke folder 'assets/bukti_transaksi'
-        //     $file = $request->file('bukti_transaksi');
-        //     $filename = time() . '_' . $file->getClientOriginalName();
-        //     $file->move(public_path('assets/bukti_transaksi'), $filename);
-    
-        //     // Hapus gambar lama jika ada
-        //     if ($pemesanan->bukti_transaksi && file_exists(public_path('assets/bukti_transaksi/' . $pemesanan->bukti_transaksi))) {
-        //         unlink(public_path('assets/bukti_transaksi/' . $pemesanan->bukti_transaksi));
-        //     }
-    
-        //     // Simpan nama gambar baru
-        //     $pemesanan->bukti_transaksi = $filename;
-        // }
-    
-        // // Simpan perubahan ke database
+
+        // Jika ada file gambar baru yang diupload
+        if ($request->hasFile('bukti_transaksi')) {
+            // Menghapus gambar lama jika ada
+            if ($pemesanan->bukti_transaksi) {
+                $oldFilePath = public_path('assets/bukti_transaksi/' . $pemesanan->bukti_transaksi);
+                if (file_exists($oldFilePath)) {
+                    unlink($oldFilePath);
+                }
+            }
+
+            // Mengambil file gambar baru
+            $file = $request->file('bukti_transaksi');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('assets/bukti_transaksi'), $filename);
+
+            // Update foto_produk dengan nama file baru
+            $pemesanan->bukti_transaksi = $filename;
+        }
         
         $pemesanan->save();
     
