@@ -66,7 +66,7 @@
                         <div class="geex-content__feature__card">
                             <div class="geex-content__feature__card__text">
                                 <p class="geex-content__feature__card__subtitle">Total Produk</p>
-                                <h4 class="geex-content__feature__card__title">10</h4>
+                                <h4 class="geex-content__feature__card__title">{{ $totalProduk }}</h4>
                             </div>
                             <div class="geex-content__feature__card__img">
                                 <img src="assets/img/feature/feature-3.svg" alt="feature" />

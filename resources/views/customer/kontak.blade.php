@@ -197,7 +197,7 @@
                 }
     
                 var whatsappMessage = "Halo, nama saya " + name + ". Email saya: " + email + ". Saya ingin mengirim pesan: " + message;
-                var phoneNumber = "6285158995655"; // Nomor WhatsApp tujuan
+                var phoneNumber = "62895613408552"; // Nomor WhatsApp tujuan
                 var whatsappURL = "https://api.whatsapp.com/send?phone=" + phoneNumber + "&text=" + encodeURIComponent(whatsappMessage);
     
                 window.open(whatsappURL, '_blank');

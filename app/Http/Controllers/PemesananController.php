@@ -4,42 +4,48 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pemesanan;
+use App\Models\Pelanggan;
 use Illuminate\Http\Request;
 
 class PemesananController extends Controller
 {
     public function index()
     {
-        $pemesanans = Pemesanan::all();
-        return view('admin.pemesanan', compact('pemesanans'));
+        $pemesanans = Pemesanan::with('pelanggan')->get();
+        $pelanggans = Pelanggan::all(); // Fetch all customers
+        return view('admin.pemesanan', compact('pemesanans', 'pelanggans')); // Pass $pelanggans to the view
     }
 
     public function indexBerhasil()
     {
         $pemesanans = Pemesanan::where('status', 'Berhasil')->get();
-        return view('admin.pemesanan', compact('pemesanans'));
+        $pelanggans = Pelanggan::all(); // Fetch all customers
+        return view('admin.pemesanan', compact('pemesanans', 'pelanggans'));
     }
     
     public function indexDiverifikasi()
     {
         $pemesanans = Pemesanan::where('status', 'Diverifikasi')->get();
-        return view('admin.pemesanan', compact('pemesanans'));
+        $pelanggans = Pelanggan::all(); // Fetch all customers
+        return view('admin.pemesanan', compact('pemesanans', 'pelanggans'));
     }
     
     public function indexGagal()
     {
         $pemesanans = Pemesanan::where('status', 'Gagal')->get();
-        return view('admin.pemesanan', compact('pemesanans'));
+        $pelanggans = Pelanggan::all(); // Fetch all customers
+        return view('admin.pemesanan', compact('pemesanans', 'pelanggans'));
     }
     
 
     public function store(Request $request)
     {
         $request->validate([
-            'username' => 'required|string|max:255',
-            'no_telp' => 'required|string|max:15',
+            'id_pelanggan' => 'required|exists:pelanggans,id', // Validate that the pelanggan exists
             'tanggal_pemesanan' => 'required|date',
-            'bukti_transaksi' => 'required|image|mimes:jpg,jpeg,png|max:5048', // Validasi file gambar
+            'total_produk' => 'required|integer|min:1', // Assuming total_produk is an integer
+            'total_biaya_transaksi' => 'required|numeric|min:0', // Assuming it's a number
+            'bukti_transaksi' => 'required|image|mimes:jpg,jpeg,png|max:5048',
             'status' => 'required|string',
         ]);
     
@@ -52,12 +58,14 @@ class PemesananController extends Controller
     
         // Simpan data ke database
         Pemesanan::create([
-            'username' => $request->username,
-            'no_telp' => $request->no_telp,
+            'id_pelanggan' => $request->id_pelanggan,
             'tanggal_pemesanan' => $request->tanggal_pemesanan,
+            'total_produk' => $request->total_produk,
+            'total_biaya_transaksi' => $request->total_biaya_transaksi,
             'bukti_transaksi' => $filename,
             'status' => $request->status,
         ]);
+
         session()->flash('success', 'Data berhasil ditambahkan!');    
         return redirect()->route('pemesanan.index')->with('success', 'Data pemesanan berhasil ditambahkan!');
     }
@@ -65,12 +73,13 @@ class PemesananController extends Controller
     public function edit($id)
     {
         $pemesanan = Pemesanan::find($id); // Cari pemesanan berdasarkan ID
-    
-        if (!$pemesanan) {
+        $pelanggans = Pelanggan::all();
+        
+        if (!$pemesanan || !$pelanggans) {
             return redirect()->route('pemesanan.index')->with('error', 'Data tidak ditemukan.');
         }
     
-        return view('admin.pemesanan.edit', compact('pemesanan')); // Kirim data pelanggan ke view
+        return view('admin.pemesanan.edit', compact('pemesanan', 'pelanggans')); // Kirim data pelanggan ke view
     }
 
     public function update(Request $request, $id)
@@ -80,17 +89,19 @@ class PemesananController extends Controller
     
         // Validasi data yang masuk
         $request->validate([
-            'username' => 'required|string',
-            'no_telp' => 'required|string',
-            'tanggal_pemesanan' => 'required|date_format:Y-m-d\TH:i', // Menyesuaikan dengan input datetime-local
+            'id_pelanggan' => 'required|exists:pelanggans,id',
+            'tanggal_pemesanan' => 'required|date',
+            'total_produk' => 'required|integer|min:1',
+            'total_biaya_transaksi' => 'required|numeric|min:0',
             'status' => 'required|in:Diverifikasi,Berhasil,Gagal',
             'bukti_transaksi' => 'nullable|image|mimes:jpg,jpeg,png|max:5048',
         ]);
     
         // Memperbarui data pemesanan
-        $pemesanan->username = $request->username;
-        $pemesanan->no_telp = $request->no_telp;
+        $pemesanan->id_pelanggan = $request->id_pelanggan;
         $pemesanan->tanggal_pemesanan = $request->tanggal_pemesanan;
+        $pemesanan->total_produk = $request->total_produk;
+        $pemesanan->total_biaya_transaksi = $request->total_biaya_transaksi;
         $pemesanan->status = $request->status;
 
         // Jika ada file gambar baru yang diupload

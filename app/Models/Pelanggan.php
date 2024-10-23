@@ -9,6 +9,17 @@ class Pelanggan extends Authenticatable
 {
     use Notifiable;
     protected $table = 'pelanggans';
-    protected $fillable = ['email', 'username', 'no_telp', 'password'];
+    protected $fillable = [
+        'username',
+        'email',
+        'alamat',
+        'no_telp',
+        'password',
+    ];
+
+    public function pemesanans()
+    {
+        return $this->hasMany(Pemesanan::class, 'pelanggan_id');
+    }
 }
 

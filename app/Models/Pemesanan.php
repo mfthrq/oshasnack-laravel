@@ -14,10 +14,16 @@ class Pemesanan extends Model
 
     // Tentukan kolom yang dapat diisi
     protected $fillable = [
-        'username',
-        'no_telp',
+        'id_pelanggan', // ID pelanggan
         'tanggal_pemesanan',
+        'total_produk', // Kolom total produk
+        'total_biaya_transaksi', // Kolom total biaya transaksi
         'bukti_transaksi',
         'status',
     ];
+    
+    public function pelanggan()
+    {
+        return $this->belongsTo(Pelanggan::class, 'id_pelanggan'); // Ensure the foreign key is correct
+    }
 }

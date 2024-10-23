@@ -324,49 +324,52 @@
                     <thead>
                         <tr style="width: 100%">
                             <th style="width: 20%">No</th>
-                            <th style="width: 20%">Username Pelanggan</th>
-                            <th style="width: 20%">No Telp Pelanggan</th>
+                            <th style="width: 20%">Pelanggan</th>
                             <th style="width: 20%">Tanggal Pemesanan</th>
+                            <th style="width: 20%">Total Produk</th>
+                            <th style="width: 20%">Total Biaya Transaksi</th>
                             <th style="width: 20%">Bukti Transaksi</th>
                             <th style="width: 20%">Status</th>
                             <th style="width: 20%">Aksi</th>
                         </tr>
-                    </thead>
+                    </thead> 
                     <tbody>
                         @if ($pemesanans->isEmpty())
                             <tr>
-                                <td colspan="7" class="text-center">Data tidak ada.</td>
+                                <td colspan="8" class="text-center">Data tidak ada.</td>
                             </tr>
                         @else
                             @foreach ($pemesanans as $index => $pemesanan)
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
-                                    <td>{{ $pemesanan->username }}</td>
-                                    <td>{{ $pemesanan->no_telp }}</td>
+                                    <td>{{ $pemesanan->pelanggan->username }}</td> 
                                     <td>{{ $pemesanan->tanggal_pemesanan }}</td>
+                                    <td>{{ $pemesanan->total_produk }}</td>
+                                    <td>Rp{{ number_format($pemesanan->total_biaya_transaksi, 0, ',', '.') }}</td>
+                                    <td><img src="{{ asset('assets/bukti_transaksi/' . $pemesanan->bukti_transaksi) }}" alt="Bukti Transaksi" width="100"></td>
                                     <td>
-                                        <img src="{{ asset('assets/bukti_transaksi/' . $pemesanan->bukti_transaksi) }}" alt="Bukti Transaksi" width="100">
-                                    </td>
-                                    <td>
-                                        <span class="badge {{ $pemesanan->status == 'Diverifikasi' ? 'bg-warning' : ($pemesanan->status == 'Berhasil' ? 'bg-success' : 'bg-danger') }}">
+                                        <span style="font-size: 13px;" class="badge {{ $pemesanan->status == 'Diverifikasi' ? 'bg-warning' : ($pemesanan->status == 'Berhasil' ? 'bg-success' : 'bg-danger') }}">
                                             {{ $pemesanan->status }}
                                         </span>
                                     </td>
                                     <td class="d-flex">
-                                        <!-- Tambahkan tombol aksi di sini, misalnya Edit dan Hapus -->
-                                        <form action="{{ route('pemesanan.destroy', $pemesanan->id) }}" method="POST" onsubmit="return confirmDelete();">
+                                        <form action="{{ route('pemesanan.destroy', $pemesanan->id) }}" method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="geex-btn geex-btn--danger"> Hapus</button>
+                                            <button type="submit" class="geex-btn geex-btn--danger">Hapus</button>
                                         </form>
-                                        <button class="ms-2 geex-btn edit-btn" data-bs-toggle="modal" data-bs-target="#formModalEdit" 
-                                        data-id="{{ $pemesanan->id }}" 
-                                        data-username="{{ $pemesanan->username }}" 
-                                        data-no_telp="{{ $pemesanan->no_telp }}" 
+                                        <button class="ms-2 geex-btn edit-btn" style="background-color: #FEC10F;" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#formModalEdit" 
+                                        data-id="{{ $pemesanan->id }}"
+                                        data-id_pelanggan="{{ $pemesanan->pelanggan->id }}"
                                         data-tanggal_pemesanan="{{ $pemesanan->tanggal_pemesanan }}"
+                                        data-total_produk="{{ $pemesanan->total_produk }}"
+                                        data-total_biaya_transaksi="{{ $pemesanan->total_biaya_transaksi }}"
                                         data-bukti_transaksi="{{ $pemesanan->bukti_transaksi }}"
-                                        data-status="{{ $pemesanan->status }}"  
-                                        style="background-color: #FEC10F;">Edit</button>
+                                        data-status="{{ $pemesanan->status }}">
+                                        Edit
+                                    </button> 
                                     </td>
                                 </tr>
                             @endforeach
@@ -407,64 +410,70 @@
 
 <!-- Modal Insert -->
 <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title" id="formModalLabel">Tambah Data</h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Form untuk input data pelanggan -->
-                    <form action="{{ route('pemesanan.store') }}" method="POST" id="myForm" enctype="multipart/form-data">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Username Pelanggan</label>
-                            <div class="geex-content__form__single__box mb-20">
-                                <input placeholder="Masukkan Username Pelanggan" type="text" name="username"
-                                    class="form-control" required />
-                            </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="formModalLabel">Tambah Data</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Form untuk input data pemesanan -->
+                <form action="{{ route('pemesanan.store') }}" method="POST" id="myForm" enctype="multipart/form-data">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="id_pelanggan" class="form-label">Pelanggan</label>
+                        <div class="geex-content__form__single__box mb-20">
+                            <select name="id_pelanggan" class="p-3" required>
+                                <option value="" disabled selected>Pilih Pelanggan</option>
+                                @foreach ($pelanggans as $pelanggan)
+                                    <option value="{{ $pelanggan->id }}">{{ $pelanggan->username }}</option>
+                                @endforeach
+                            </select>
                         </div>
-                        <div class="mb-3">
-                            <label for="no_telp" class="form-label">No Telp Pelanggan</label>
-                            <div class="geex-content__form__single__box mb-20">
-                                <input placeholder="No Telp Pelanggan" type="number" name="no_telp"
-                                    class="form-control" required />
-                            </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tanggal_pemesanan" class="form-label">Tanggal Pemesanan</label>
+                        <div class="geex-content__form__single__box mb-20">
+                            <input placeholder="Tanggal Pemesanan" type="datetime-local" name="tanggal_pemesanan" class="form-control" required />
                         </div>
-                        <div class="mb-3">
-                            <label for="tanggal_pemesanan" class="form-label">Tanggal Pemesanan</label>
-                            <div class="geex-content__form__single__box mb-20">
-                                <input placeholder="Tanggal Pemesanan" type="datetime-local" name="tanggal_pemesanan" class="form-control" required />
-                            </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="total_produk" class="form-label">Total Produk</label>
+                        <div class="geex-content__form__single__box mb-20">
+                            <input type="number" name="total_produk" class="form-control" required />
                         </div>
-                        <div class="mb-3">
-                            <label for="bukti_transaksi" class="form-label">Bukti Transaksi</label>
-                            <div class="geex-content__form__single__box mb-20">
-                                <input type="file" class="form-control" name="bukti_transaksi" 
-                                       placeholder="Masukkan Bukti Transaksi" required accept="image/*">
-                                
-                                @error('bukti_transaksi')
-                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
-                                @enderror
-                            </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="total_biaya_transaksi" class="form-label">Total Biaya Transaksi</label>
+                        <div class="geex-content__form__single__box mb-20">
+                            <input type="number" name="total_biaya_transaksi" class="form-control" required />
                         </div>
-                        
-                        <div class="mb-3">
-                            <label for="status" class="form-label">Status</label>
-                            <div class="geex-content__form__single__box mb-20">
-                                <select name="status" class="form-select" required>
-                                    <option value="" disabled selected>Pilih Status</option>
-                                    <option value="Diverifikasi">Diverifikasi</option>
-                                    <option value="Berhasil">Berhasil</option>
-                                    <option value="Gagal">Gagal</option>
-                                </select>
-                            </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="bukti_transaksi" class="form-label">Bukti Transaksi</label>
+                        <div class="geex-content__form__single__box mb-20">
+                            <input type="file" class="form-control" name="bukti_transaksi" required accept="image/*">
+                            @error('bukti_transaksi')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
                         </div>
-                        <button type="submit" class="geex-btn geex-btn--primary">Submit</button>
-                    </form>
-                </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Status</label>
+                        <div class="geex-content__form__single__box mb-20">
+                            <select name="status" class="p-3" required>
+                                <option value="" disabled selected>Pilih Status</option>
+                                <option value="Diverifikasi">Diverifikasi</option>
+                                <option value="Berhasil">Berhasil</option>
+                                <option value="Gagal">Gagal</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="geex-btn geex-btn--primary">Submit</button>
+                </form>
             </div>
         </div>
+    </div>
 </div>
 
 <!-- Modal Edit-->
@@ -482,37 +491,47 @@
                     @method('PUT')
                     <input type="hidden" name="id" id="editId">
                     <div class="mb-3">
-                        <label for="username" class="form-label">Username Pelanggan</label>
+                        <label for="id_pelanggan" class="form-label">Pelanggan</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input placeholder="Masukkan Username Pelanggan" type="text" id="editUsername" name="username"
-                                class="form-control" required />
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="no_telp" class="form-label">No Telp Pelanggan</label>
-                        <div class="geex-content__form__single__box mb-20">
-                            <input placeholder="No Telp Pelanggan" type="number" id="editNoTelp"  name="no_telp"
-                                class="form-control" required />
+                            <select name="id_pelanggan" id="editIdPelanggan" class="p-3" required>
+                                <option value="" disabled>Pilih Pelanggan</option>
+                                @foreach ($pelanggans as $pelanggan)
+                                    <option value="{{ $pelanggan->id }}">
+                                        {{ $pelanggan->username }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="tanggal_pemesanan" class="form-label">Tanggal Pemesanan</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input placeholder="Tanggal Pemesanan" type="datetime-local" id="editTanggalPemesanan"  name="tanggal_pemesanan" class="form-control" required />
+                            <input placeholder="Tanggal Pemesanan" type="datetime-local" name="tanggal_pemesanan" class="form-control" id="editTanggalPemesanan" required />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="total_produk" class="form-label">Total Produk</label>
+                        <div class="geex-content__form__single__box mb-20">
+                            <input type="number" name="total_produk" id="editTotalProduk" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="total_biaya_transaksi" class="form-label">Total Biaya Transaksi</label>
+                        <div class="geex-content__form__single__box mb-20">
+                            <input type="number" name="total_biaya_transaksi" id="editTotalBiayaTransaksi" class="form-control" required />
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="bukti_transaksi" class="form-label">Bukti Transaksi</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input type="file" class="form-control" id="editBuktiTransaksi" name="bukti_transaksi">
+                            <input type="file" class="form-control" name="bukti_transaksi" id="editBuktiTransaksi" accept="image/*">
                         </div>
-                        <!-- Preview gambar yang sedang digunakan -->
-                        <img id="currentBuktiTransaksi" src="" alt="Bukti Transaksi" width="100" class="mt-2">
                     </div>
+                    <img class="mb-3" id="currentBuktiTransaksi" src="" alt="Bukti Transaksi" width="200" class="mt-2">
                     <div class="mb-3">
                         <label for="status" class="form-label">Status</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <select id="editStatus" name="status" class="form-select" required>
+                            <select name="status" id="editStatus" class="p-3" required>
                                 <option value="" disabled selected>Pilih Status</option>
                                 <option value="Diverifikasi">Diverifikasi</option>
                                 <option value="Berhasil">Berhasil</option>
@@ -531,17 +550,19 @@
     document.querySelectorAll('.edit-btn').forEach(button => {
         button.addEventListener('click', function() {
             const id = this.getAttribute('data-id');
-            const username = this.getAttribute('data-username');
-            const no_telp = this.getAttribute('data-no_telp');
+            const id_pelanggan = this.getAttribute('data-id_pelanggan');
             const tanggal_pemesanan = this.getAttribute('data-tanggal_pemesanan');
+            const total_produk = this.getAttribute('data-total_produk');
+            const total_biaya_transaksi = this.getAttribute('data-total_biaya_transaksi');
             const bukti_transaksi = this.getAttribute('data-bukti_transaksi');
             const status = this.getAttribute('data-status');
 
             // Set value input di modal
             document.getElementById('editId').value = id;
-            document.getElementById('editUsername').value = username;
-            document.getElementById('editNoTelp').value = no_telp;
+            document.getElementById('editIdPelanggan').value = id_pelanggan; // Set the value for the dropdown
             document.getElementById('editTanggalPemesanan').value = tanggal_pemesanan;
+            document.getElementById('editTotalProduk').value = total_produk;
+            document.getElementById('editTotalBiayaTransaksi').value = total_biaya_transaksi;
             document.getElementById('editStatus').value = status;
 
             // Set src dari gambar saat ini
@@ -552,5 +573,7 @@
         });
     });
 </script>
+
+
 
 </html>

@@ -6379,6 +6379,7 @@ blockquote span:before {
 }
 
 .geex-content__form__single__box input,
+.geex-content__form__single__box select,
 .geex-content__form__single__box textarea {
   -webkit-box-flex: 1;
       -ms-flex: 1;
