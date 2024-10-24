@@ -70,6 +70,37 @@ class PemesananController extends Controller
         return redirect()->route('pemesanan.index')->with('success', 'Data pemesanan berhasil ditambahkan!');
     }
 
+    public function storePembayaran(Request $request)
+    {
+        $request->validate([
+            'id_pelanggan' => 'required|exists:pelanggans,id', // Validate that the pelanggan exists
+            'tanggal_pemesanan' => 'required|date',
+            'total_produk' => 'required|integer|min:1', // Assuming total_produk is an integer
+            'total_biaya_transaksi' => 'required|numeric|min:0', // Assuming it's a number
+            'bukti_transaksi' => 'required|image|mimes:jpg,jpeg,png|max:5048',
+            'status' => 'required|string',
+        ]);
+    
+        // Mengambil file gambar
+        $file = $request->file('bukti_transaksi');
+        
+        // Menentukan nama file dan menyimpan gambar
+        $filename = time() . '.' . $file->getClientOriginalExtension();
+        $file->move(public_path('assets/bukti_transaksi'), $filename);
+    
+        // Simpan data ke database
+        Pemesanan::create([
+            'id_pelanggan' => $request->id_pelanggan,
+            'tanggal_pemesanan' => $request->tanggal_pemesanan,
+            'total_produk' => $request->total_produk,
+            'total_biaya_transaksi' => $request->total_biaya_transaksi,
+            'bukti_transaksi' => $filename,
+            'status' => $request->status,
+        ]);
+
+        return response()->json(['success' => 'Data pembayaran berhasil disimpan!']);
+    }
+
     public function edit($id)
     {
         $pemesanan = Pemesanan::find($id); // Cari pemesanan berdasarkan ID

@@ -77,7 +77,14 @@ Route::middleware([PelangganAuth::class])->group(function () {
     Route::get('/profile', [PelangganController::class, 'indexProfile'])->name('profile-pelanggan.index'); 
 
     Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang.index'); 
+
+    Route::get('/pembayaran', function () {
+        return view('customer/pembayaran');
+    });
+    
 });
+
+Route::post('/pembayaran/store', [PemesananController::class, 'storePembayaran'])->name('pembayaran.storePembayaran');
 
 // ============== SIGNUP =================
 Route::get('/signup-pelanggan', function () {
@@ -90,11 +97,6 @@ Route::post('/signup-pelanggan/store', [PelangganController::class, 'storePelang
 Route::get('/produk', [ProdukController::class, 'indexProdukPelanggan'])->name('produkPelanggan.index'); 
 
 Route::get('/detail-produk/{id}', [ProdukController::class, 'showDetailProduk'])->name('produk.detail');
-
-// ============== KERANJANG =================
-Route::post('/keranjang/tambah/{id}', [KeranjangController::class, 'tambahKeranjang'])->name('keranjang.tambah');
-
-Route::delete('/keranjang/hapus/{id}', [KeranjangController::class, 'hapusKeranjang'])->name('keranjang.hapus');
 
 // ============== PROFILE =================
 Route::put('/profile/{id}', [PelangganController::class, 'updatePelanggan'])->name('profile-pelanggan.update');

@@ -32,11 +32,11 @@ class ProdukController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
+            'nama' => 'required|string|max:500',
             'deskripsi' => 'required|string|max:500',
-            'komposisi' => 'required|string|max:255',
-            'keunggulan' => 'required|string|max:255',
-            'harga' => 'required|string|max:255',
+            'komposisi' => 'required|string|max:500',
+            'keunggulan' => 'required|string|max:500',
+            'harga' => 'required|string|max:500',
             'foto_produk' => 'required|image|mimes:jpg,jpeg,png|max:5048',
         ]);
     
@@ -79,11 +79,11 @@ class ProdukController extends Controller
     
         // Validasi data yang masuk
         $request->validate([
-            'nama' => 'required|string|max:255',
-            'deskripsi' => 'required|string|max:255',
-            'komposisi' => 'required|string|max:255',
-            'keunggulan' => 'required|string|max:255',
-            'harga' => 'required|string|max:255',
+            'nama' => 'required|string|max:500',
+            'deskripsi' => 'required|string|max:500',
+            'komposisi' => 'required|string|max:500',
+            'keunggulan' => 'required|string|max:500',
+            'harga' => 'required|string|max:500',
             'foto_produk' => 'nullable|image|mimes:jpg,jpeg,png|max:5048',
         ]);
     

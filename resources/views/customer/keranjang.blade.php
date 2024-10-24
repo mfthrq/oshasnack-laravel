@@ -66,7 +66,7 @@
                         </div>
                         <div class="btn-checkout-area">
                             <a class="fw-bold rts-btn btn-primary checkout radious-5 w--100 mt--30"
-                                href="check-out.html" style="color: #611746;">Pesan</a>
+                                href="/pembayaran" style="color: #611746;">Pesan</a>
                         </div>
                     </div>
 
