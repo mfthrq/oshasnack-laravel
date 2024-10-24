@@ -68,6 +68,39 @@
             font-size: 14px;
             font-weight: bold;
         }
+
+        /* Atur ukuran SweetAlert */
+        .swal2-popup {
+            width: 500px !important;
+            /* Atur lebar popup sesuai kebutuhan */
+            max-width: 90vw;
+            /* Pastikan popup tidak melebihi lebar layar */
+            font-size: 15px;
+            /* Atur ukuran font di dalam popup */
+        }
+
+        /* Atur ukuran tombol OK */
+        .swal2-confirm {
+            font-size: 15px;
+            /* Atur ukuran font tombol */
+            padding: 10px 20px;
+            /* Atur padding untuk tombol */
+            min-width: 100px;
+            /* Atur lebar minimum tombol */
+            background-color: #771E56 !important;
+            /* Atur warna latar belakang tombol */
+            color: #fff;
+            /* Atur warna teks tombol menjadi putih */
+            border: none;
+            /* Hapus border jika ada */
+        }
+
+        /* Ubah warna saat tombol hover */
+        .swal2-confirm:hover {
+            color: #771E56;
+            background-color: #FEC10E !important;
+            /* Warna latar belakang saat hover */
+        }
     </style>
 </head>
 
@@ -126,11 +159,16 @@
 
                             <div id="produk-list"></div>
 
-                            <div class="total-area">
+                            <div class="total-area mb-4">
                                 <h6 class="mb-0">Total</h6>
                                 <span id="total-price" class="total-price">Rp0</span>
                             </div>
                             <!-- total amount area end -->
+                            <div>
+                                <img src="{{ asset('assets/assets_customer/images/qrcode_contoh.png') }}"
+                                    alt="">
+                                <h6 class="fs-3 mt-4 fw-normal">Lakukan pembayaran dengan scan QR Code QRIS diatas.</h6>
+                            </div>
                         </div>
                         <form class="login-wrapper p-0 w-100 mt-4" style="border: none;" enctype="multipart/form-data"
                             id="payment-form" method="POST">
@@ -145,10 +183,10 @@
                                 <input type="file" name="bukti_transaksi" id="bukti_transaksi" required
                                     accept="image/*">
                             </div>
-                            <span id="file-name" class="file-name"></span> <br>
+                            <span id="file-name" class="file-name "></span> <br>
 
                             <button type="submit" id="kirim-btn"
-                                class="rts-btn btn-primary radious-5 mt-4 w--100 fw-bold"
+                                class="rts-btn btn-primary radious-5 w--100 fw-bold mt-2"
                                 style="color:#771E56;">Kirim</button>
                         </form>
                     </div>
@@ -197,6 +235,19 @@
         document.getElementById('payment-form').addEventListener('submit', function(event) {
             event.preventDefault(); // Mencegah pengiriman form default
 
+            // Ambil elemen file input
+            const buktiTransaksi = document.getElementById('bukti_transaksi').files[0];
+
+            // Cek apakah file melebihi 5MB
+            if (buktiTransaksi && buktiTransaksi.size > 5 * 1024 * 1024) { // 5MB dalam byte
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal!',
+                    text: 'Bukti transaksi tidak boleh lebih dari 5 MB',
+                });
+                return; // Berhenti, jangan kirim form
+            }
+
             // Buat FormData untuk pengiriman data ke server
             const formData = new FormData(this);
 
@@ -242,6 +293,7 @@
                     });
                 });
         });
+
 
         document.getElementById('bukti_transaksi').addEventListener('change', function() {
             // Ambil elemen span untuk menampilkan nama file
@@ -294,7 +346,7 @@
 
             // Mengambil tanggal dan waktu sekarang
             const now = new Date();
-            const formattedDate = now.toISOString().slice(0, 19).replace('T', ' '); // Format YYYY-MM-DD HH:MM:SS
+            const formattedDate = now.toISOString().slice(0, 16).replace('T', ' '); // Format YYYY-MM-DD HH:MM:SS
             document.getElementById('tanggal_pemesanan').value = formattedDate;
         }
 

@@ -36,6 +36,18 @@ class PemesananController extends Controller
         $pelanggans = Pelanggan::all(); // Fetch all customers
         return view('admin.pemesanan', compact('pemesanans', 'pelanggans'));
     }
+
+    public function indexRiwayatPelanggan()
+    {
+        $idPelanggan = session('id');
+
+        // Ambil semua pemesanan yang terkait dengan ID pelanggan dari session
+        $pemesanans = Pemesanan::with('pelanggan')
+            ->where('id_pelanggan', $idPelanggan) // Filter berdasarkan id_pelanggan dari session
+            ->get();
+    
+        return view('customer.riwayat', compact('pemesanans'));
+    }
     
 
     public function store(Request $request)

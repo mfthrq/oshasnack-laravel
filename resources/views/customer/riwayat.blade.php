@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Oshasnack | Profile</title>
+    <title>Oshasnack | Riwayat</title>
     <meta name="robots" content="noindex" />
     <meta name="description" content="" />
     <meta
@@ -64,42 +64,59 @@
                 <!-- start details arae -->
                 <div class="col-xl-12 col-lg-12 col-md-12 ml--30 mt_sm--50 mt_md--50 mt_lg--50 ml_sm--0">
                     <div class="team-details-wrapper">
-                        <div class="d-flex">
-                            <h3 class="title" data-sal-delay="300" data-sal-duration="800" data-sal="slide-up">Profile</h3>
+                        <h3 class="title" data-sal-delay="300" data-sal-duration="800" data-sal="slide-up">Riwayat Pemesanan</h3>
+                        <div class="box-table table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <span class="fw-bold" style="color: #FEC10E;">No</span>
+                                        </th>
+                                        <th>
+                                            <span class="fw-bold" style="color: #FEC10E;">Tanggal Pemesanan</span>
+                                        </th>
+                                        <th>
+                                            <span class="fw-bold" style="color: #FEC10E;">Total Produk</span>
+                                        </th>
+                                        <th>
+                                            <span class="fw-bold" style="color: #FEC10E;">Total Biaya</span>
+                                        </th>
+                                        <th>
+                                            <span class="fw-bold" style="color: #FEC10E;">Bukti Transaksi</span>
+                                        </th>
+                                        <th>
+                                            <span class="fw-bold" style="color: #FEC10E;">Status</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="ranking">
+                                    @forelse ($pemesanans as $pemesanan)
+                                        <tr class="color-light">
+                                            <td><span>{{ $loop->iteration }}</span></td>
+                                            <td><span>{{ $pemesanan->tanggal_pemesanan }}</span></td>
+                                            <td><span>{{ $pemesanan->total_produk }}</span></td>
+                                            <td><span>Rp{{ number_format($pemesanan->total_biaya_transaksi, 0, ',', '.') }}</span></td>
+                                            <td>
+                                                @if ($pemesanan->bukti_transaksi)
+                                                    <img src="{{ asset('assets/bukti_transaksi/' . $pemesanan->bukti_transaksi) }}" alt="Bukti Transaksi" style="width: 100px;">
+                                                @else
+                                                    <span>Tidak ada bukti</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <span style="font-size: 15px; border-radius: 10px;" class="badge {{ $pemesanan->status == 'Diverifikasi' ? 'bg-warning' : ($pemesanan->status == 'Berhasil' ? 'bg-success' : 'bg-danger') }}">
+                                                    {{ $pemesanan->status }}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="6" align="center"><span>Tidak ada riwayat pemesanan.</span></td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
                         </div>
-                        @if(session('username'))
-                        <h6 class="fw-light">Halo, Selamat Datang <span class="fw-bold"> {{ session('username') }}!</span></h6>
-                        @endif
-
-                            <h6> Nama Lengkap </h6>
-                            <div class="service-sm" data-sal-delay="300" data-sal-duration="800" data-sal="slide-up">
-                                <p>{{ session('username') }}</p>
-                            </div>
-
-                            <h6> Email </h6>
-                            <div class="service-sm" data-sal-delay="300" data-sal-duration="800" data-sal="slide-up">
-                                <p>{{ session('email') }}</p>
-                            </div>
-
-                            <h6> Nomor Telepon </h6>
-                            <div class="service-sm" data-sal-delay="300" data-sal-duration="800" data-sal="slide-up">
-                                <p>{{ session('no_telp') }}</p>
-                            </div>
-
-                            <h6> Alamat </h6>
-                            <div class="service-sm" data-sal-delay="300" data-sal-duration="800" data-sal="slide-up">
-                                <p>{{ session('alamat') }}</p>
-                            </div>
-                        
-                    </div>
-                    
-                    <div class="d-flex gap-4">
-                        <a href="/riwayat"style="color: #771e56" class="rts-btn btn-warning fw-bold">Riwayat</a>
-                        <button href="#" class="rts-btn btn-primary fw-bold" style="color: #771e56" data-bs-toggle="modal" data-bs-target="#formModalEdit">Edit Data</button>
-                        <form id="logout-form" action="{{ route('pelanggan.logout') }}" method="POST" onsubmit="clearKeranjang()">
-                            @csrf
-                            <button type="submit" class="rts-btn btn-danger fw-bold">Logout</button>
-                        </form>
                         
                     </div>
                 </div>
