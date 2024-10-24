@@ -97,7 +97,7 @@
               data-sal="slide-right"
             >
               <div class="thumbnail d-flex justify-content-center">
-                <img src="assets/assets_customer/images/Stik_Keju_Original.png" height="300px" width="300px" alt="Stik Keju Goreng" />
+                <img src="assets/assets_customer/images/produk_oshasnack_utama.png" height="600px" width="600px" alt="Stik Keju Goreng" />
               </div>
             </div>
           </div>
