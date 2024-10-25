@@ -306,7 +306,7 @@
             <div class="geex-content__header">
                 <div class="geex-content__header__content">
                     <h2 class="geex-content__header__title">Data Pemesanan - 
-                        {{ request()->is('pemesanan') ? 'Semua Data' : (request()->is('pemesanan/berhasil') ? 'Berhasil' : (request()->is('pemesanan/diverifikasi') ? 'Diverifikasi' : 'Gagal')) }}
+                        {{ request()->is('pemesanan') ? 'Semua Data' : (request()->is('admin/pemesanan/berhasil') ? 'Berhasil' : (request()->is('admin/pemesanan/diverifikasi') ? 'Diverifikasi' : 'Gagal')) }}
                     </h2>
                 </div>
 
