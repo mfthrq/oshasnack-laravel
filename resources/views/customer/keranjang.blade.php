@@ -21,6 +21,32 @@
     <!-- style css -->
     <link rel="stylesheet" href="{{ asset('assets/assets_customer/css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+
+    <style>
+        /* Atur ukuran SweetAlert */
+        .swal2-popup {
+            width: 500px !important; /* Atur lebar popup sesuai kebutuhan */
+            max-width: 90vw; /* Pastikan popup tidak melebihi lebar layar */
+            font-size: 15px; /* Atur ukuran font di dalam popup */
+        }
+
+        /* Atur ukuran tombol OK */
+        .swal2-confirm {
+            font-size: 15px; /* Atur ukuran font tombol */
+            padding: 10px 20px; /* Atur padding untuk tombol */
+            min-width: 100px; /* Atur lebar minimum tombol */
+            background-color: #771E56 !important; /* Atur warna latar belakang tombol */
+            color: #fff; /* Atur warna teks tombol menjadi putih */
+            border: none; /* Hapus border jika ada */
+        }
+
+        /* Ubah warna saat tombol hover */
+        .swal2-confirm:hover {
+            color: #771E56;
+            background-color: #FEC10E !important; /* Warna latar belakang saat hover */
+        }
+    </style>
 </head>
 
 <body class="rt_bg-secondary">
@@ -51,10 +77,10 @@
                             </div>
 
                             <div class="shipping-location">
-                                    <span class="change-address text-white">
-                                        <i class="fal fa-map-marker-alt mr--5"></i>
-                                        {{ session('alamat') }}
-                                    </span>
+                                <span class="change-address text-white">
+                                    <i class="fal fa-map-marker-alt mr--5"></i>
+                                    {{ session('alamat') }}
+                                </span>
                                 </span>
                             </div>
 
@@ -65,8 +91,8 @@
                             <!-- total amount area end -->
                         </div>
                         <div class="btn-checkout-area">
-                            <a class="fw-bold rts-btn btn-primary checkout radious-5 w--100 mt--30"
-                                href="/pembayaran" style="color: #611746;">Pesan</a>
+                            <a class="fw-bold rts-btn btn-primary checkout radious-5 w--100 mt--30" href="/pembayaran"
+                                style="color: #611746;" id="btn-checkout">Pesan</a>
                         </div>
                     </div>
 
@@ -109,6 +135,7 @@
 
     <!-- main js -->
     <script src="assets/assets_customer/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         // Fungsi untuk menampilkan produk di keranjang
@@ -119,7 +146,8 @@
             let totalHarga = 0;
 
             if (keranjang.length === 0) {
-                keranjangList.innerHTML = '<p class="alert alert-warning" style="color: #611746; background-color: #FEC10E; border: none;">Keranjang Anda kosong.</p>';
+                keranjangList.innerHTML =
+                    '<p class="alert alert-warning" style="color: #611746; background-color: #FEC10E; border: none;">Keranjang Anda kosong.</p>';
                 document.getElementById('total-price').innerText = 'Rp0';
                 return;
             }
@@ -194,8 +222,26 @@
             tampilkanKeranjang();
         }
 
+
         // Panggil fungsi untuk menampilkan keranjang saat halaman dimuat
         window.onload = tampilkanKeranjang;
+
+        // Event listener untuk tombol checkout
+        document.getElementById('btn-checkout').addEventListener('click', function(e) {
+            if (isKeranjangKosong()) {
+                e.preventDefault(); // Mencegah navigasi
+                Swal.fire(
+                "Gagal", "Kamu belum memiliki produk di keranjang!", "error"); // Tampilkan pesan peringatan
+            } else {
+                window.location.href = '/pembayaran'; // Arahkan ke halaman pembayaran jika keranjang tidak kosong
+            }
+        });
+
+        // Fungsi untuk memeriksa apakah keranjang kosong
+        function isKeranjangKosong() {
+            let keranjang = JSON.parse(localStorage.getItem('keranjang')) || [];
+            return keranjang.length === 0;
+        }
     </script>
 </body>
 

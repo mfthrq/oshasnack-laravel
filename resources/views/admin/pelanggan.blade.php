@@ -19,9 +19,6 @@
     <!-- Fonts -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@iconscout/unicons@4.0.8/css/line.min.css">
 
-    <!-- SweetAlert CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
-
     <script>
         // Render localStorage JS:
         if (localStorage.theme) document.documentElement.setAttribute("data-theme", localStorage.theme);
@@ -378,13 +375,13 @@
     <script src="{{ asset('assets/js/main.js') }}"></script>
     
     <!-- SweetAlert JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <!-- endinject-->
     @if (session('success'))
         <script>
-            swal("Berhasil!", "{{ session('success') }}", "success");
+            Swal.fire("Berhasil!", "{{ session('success') }}", "success");
         </script>
     @endif
 

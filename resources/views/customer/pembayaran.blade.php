@@ -279,7 +279,7 @@
 
                             // Redirect ke halaman profile setelah delay
                             setTimeout(() => {
-                                window.location.href = '/profile'; // Redirect ke profile
+                                window.location.href = '/riwayat'; // Redirect ke profile
                             }, 500);
                         }
                     });

@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="{{ asset('assets/assets_customer/css/vendor/bootstrap.min.css') }}">
     <!-- style css -->
     <link rel="stylesheet" href="{{ asset('assets/assets_customer/css/style.css') }}">
-
 </head>
 
 <body class="rt_bg-secondary">

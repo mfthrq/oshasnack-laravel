@@ -82,10 +82,8 @@ Route::middleware([PelangganAuth::class])->group(function () {
         return view('customer/pembayaran');
     });
     
+    Route::get('/riwayat', [PemesananController::class, 'indexRiwayatPelanggan'])->name('riwayat.index'); 
 });
-
-// ============== RIWAYAT PEMESANAN =================
-Route::get('/riwayat', [PemesananController::class, 'indexRiwayatPelanggan'])->name('riwayat.index'); 
 
 // ============== PEMBAYARAN =================
 Route::post('/pembayaran/store', [PemesananController::class, 'storePembayaran'])->name('pembayaran.storePembayaran');

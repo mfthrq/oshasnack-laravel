@@ -64,7 +64,7 @@
                 <!-- start details arae -->
                 <div class="col-xl-12 col-lg-12 col-md-12 ml--30 mt_sm--50 mt_md--50 mt_lg--50 ml_sm--0">
                     <div class="team-details-wrapper">
-                        <h3 class="title" data-sal-delay="300" data-sal-duration="800" data-sal="slide-up">Riwayat Pemesanan</h3>
+                        <h3 class="title" data-sal-delay="300" data-sal-duration="800" data-sal="slide-up">Riwayat <span style="color: #FEC10E;">Pemesanan</span></h3>
                         <div class="box-table table-responsive">
                             <table class="table">
                                 <thead>

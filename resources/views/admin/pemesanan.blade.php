@@ -356,7 +356,7 @@
                                         <form action="{{ route('pemesanan.destroy', $pemesanan->id) }}" method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="geex-btn geex-btn--danger">Hapus</button>
+                                            <button type="submit" class="geex-btn geex-btn--danger" onclick="confirmDelete()">Hapus</button>
                                         </form>
                                         <button class="ms-2 geex-btn edit-btn" style="background-color: #FEC10F;" 
                                         data-bs-toggle="modal" 
@@ -390,14 +390,14 @@
     <script src="{{ asset('assets/js/main.js') }}"></script>
     
     <!-- SweetAlert JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     
 
     <!-- endinject-->
     @if (session('success'))
         <script>
-            swal("Berhasil!", "{{ session('success') }}", "success");
+            Swal.fire("Berhasil!", "{{ session('success') }}", "success");
         </script>
     @endif
 
@@ -414,7 +414,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title" id="formModalLabel">Tambah Data</h2>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeModalBtn"></button>
             </div>
             <div class="modal-body">
                 <!-- Form untuk input data pemesanan -->
@@ -452,7 +452,7 @@
                     <div class="mb-3">
                         <label for="bukti_transaksi" class="form-label">Bukti Transaksi</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input type="file" class="form-control" name="bukti_transaksi" required accept="image/*">
+                            <input type="file" class="form-control" name="bukti_transaksi" id="bukti_transaksi" required accept="image/*">
                             @error('bukti_transaksi')
                                 <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror
@@ -482,7 +482,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title" id="formModalLabel">Edit Data</h2>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeModalBtnEdit"></button>
             </div>
             <div class="modal-body">
                 <!-- Form untuk input data pelanggan -->
@@ -574,6 +574,44 @@
     });
 </script>
 
+<script>
+    document.getElementById('myForm').addEventListener('submit', function(e) {
+        var fileInput = document.getElementById('bukti_transaksi');
+        var file = fileInput.files[0];
+    
+        if (file && file.size > 5048 * 1024) { // 5048 KB = 5MB
+            e.preventDefault(); // Mencegah submit form
 
+            // Simulasikan klik tombol close
+            document.getElementById('closeModalBtn').click();
+
+            // Setelah modal ditutup, tampilkan SweetAlert
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'File tidak dapat lebih dari 5MB!'
+            });
+        }
+    });
+
+    document.getElementById('editForm').addEventListener('submit', function(e) {
+        var fileInput = document.getElementById('editBuktiTransaksi');
+        var file = fileInput.files[0];
+
+        if (file && file.size > 5048 * 1024) { // 5048 KB = 5MB
+            e.preventDefault(); // Mencegah submit form
+
+            // Simulasikan klik tombol close
+            document.getElementById('closeModalBtnEdit').click();
+
+            // Setelah modal ditutup, tampilkan SweetAlert
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'File tidak dapat lebih dari 5MB!'
+            });
+        }
+    });
+</script>
 
 </html>
