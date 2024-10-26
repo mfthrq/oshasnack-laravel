@@ -79,7 +79,7 @@
                             <div class="shipping-location">
                                 <span class="change-address text-white">
                                     <i class="fal fa-map-marker-alt mr--5"></i>
-                                    {{ session('alamat') }}
+                                    {{ $user->alamat }}
                                 </span>
                                 </span>
                             </div>
