@@ -98,7 +98,7 @@
                 <div class="col-lg-6">
                     <div class="meassage-wrapper">
                         <h3 class="title mb--40" data-sal-delay="300" data-sal-duration="800" data-sal="slide-up">
-                            Kirimkan Kami Pesan
+                            Kirimkan Kami <span style="color: #FEC10E;">Pesan</span>
                         </h3>
                         <div id="form-messages"></div>
                         <form id="contact-form">
@@ -197,7 +197,7 @@
                 }
     
                 var whatsappMessage = "Halo, nama saya " + name + ". Email saya: " + email + ". Saya ingin mengirim pesan: " + message;
-                var phoneNumber = "62895613408552"; // Nomor WhatsApp tujuan
+                var phoneNumber = "6285697599248"; // Nomor WhatsApp tujuan
                 var whatsappURL = "https://api.whatsapp.com/send?phone=" + phoneNumber + "&text=" + encodeURIComponent(whatsappMessage);
     
                 window.open(whatsappURL, '_blank');

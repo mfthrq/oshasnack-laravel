@@ -419,7 +419,7 @@
                     <div class="mb-3">
                         <label for="no_telp" class="form-label">No Telp</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input placeholder="Masukkan No Telp" type="number" name="no_telp" class="form-control" required />
+                            <input placeholder="Masukkan No Telp" type="number" name="no_telp" class="form-control" min="1" required />
                         </div>
                     </div>
                     <div class="mb-3">
@@ -470,7 +470,7 @@
                     <div class="mb-3">
                         <label for="no_telp" class="form-label">No Telp</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input type="text" class="form-control" name="no_telp" id="editNoTelp" required>
+                            <input type="text" class="form-control" name="no_telp" id="editNoTelp" min="1" required>
                         </div>
                     </div>
                     <div class="mb-3">

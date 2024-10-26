@@ -1,42 +1,38 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\KeranjangController;
 use App\Http\Middleware\AdminAuth;
 use App\Http\Middleware\PelangganAuth;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PemesananController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\PelangganAuthController;
+use App\Http\Controllers\AuthController;
 
 // ======================= ADMIN ROUTE ============================
 // ============== ADMIN =================
 
-Route::get('/admin/login-admin', [AdminAuthController::class, 'showLoginForm'])->name('login');
-
-Route::post('/admin/login-admin', [AdminAuthController::class, 'login'])->name('admin.login');
+Route::get('/admin/login', [AuthController::class, 'showAdminLoginForm'])->name('admin.login');
+Route::post('/admin/login', [AuthController::class, 'adminLogin'])->name('admin.login.submit');
 
 Route::middleware([AdminAuth::class])->group(function () {
-    Route::get('/admin', [AdminAuthController::class, 'dashboard'])->name('admin.dashboard'); 
+    Route::get('/admin', [AuthController::class, 'dashboardAdmin'])->name('admin.index-admin'); 
     Route::get('/admin/pelanggan', [PelangganController::class, 'index'])->name('pelanggan.index'); 
     Route::get('/admin/pemesanan', [PemesananController::class, 'index'])->name('pemesanan.index'); 
     Route::get('/admin/produk', [ProdukController::class, 'index'])->name('produk.index'); 
 });
 
-Route::post('/admin/logout', function () {
-    Auth::guard('admin')->logout();
-    return redirect()->route('login');
-})->name('admin.logout');
+// Logout Admin
+Route::post('/admin/logout', [AuthController::class, 'logout'])->name('admin.logout');
 
 // ============== PELANGGAN =================
 
 Route::post('/admin/pelanggan/store', [PelangganController::class, 'store'])->name('pelanggan.store');
 
 Route::delete('/admin/pelanggan/{id}', [PelangganController::class, 'destroy'])->name('pelanggan.destroy');
-
-Route::get('/admin/pelanggan/{id}/edit', [PelangganController::class, 'edit'])->name('pelanggan.edit');
 
 Route::put('/admin/pelanggan/{id}', [PelangganController::class, 'update'])->name('pelanggan.update');
 
@@ -45,8 +41,6 @@ Route::put('/admin/pelanggan/{id}', [PelangganController::class, 'update'])->nam
 Route::post('/admin/pemesanan/store', [PemesananController::class, 'store'])->name('pemesanan.store');
 
 Route::delete('/admin/pemesanan/{id}', [PemesananController::class, 'destroy'])->name('pemesanan.destroy');
-
-Route::get('/admin/pemesanan/{id}/edit', [PemesananController::class, 'edit'])->name('pemesanan.edit');
 
 Route::put('/admin/pemesanan/{id}', [PemesananController::class, 'update'])->name('pemesanan.update');
 
@@ -62,25 +56,20 @@ Route::post('/admin/produk/store', [ProdukController::class, 'store'])->name('pr
 
 Route::delete('/admin/produk/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy');
 
-Route::get('/admin/produk/{id}/edit', [ProdukController::class, 'edit'])->name('produk.edit');
-
 Route::put('/admin/produk/{id}', [ProdukController::class, 'update'])->name('produk.update');
 
 // ======================= PELANGGAN ROUTE ============================
 // ============== LOGIN =================
 
-Route::get('/login-pelanggan', [PelangganAuthController::class, 'showLoginForm'])->name('login-pelanggan');
-
-Route::post('/login-pelanggan', [PelangganAuthController::class, 'login'])->name('pelanggan.login');
+Route::get('/login', [AuthController::class, 'showCustomerLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'customerLogin'])->name('customer.login.submit');
 
 Route::middleware([PelangganAuth::class])->group(function () {
     Route::get('/profile', [PelangganController::class, 'indexProfile'])->name('profile-pelanggan.index'); 
 
     Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang.index'); 
 
-    Route::get('/pembayaran', function () {
-        return view('customer/pembayaran');
-    });
+    Route::get('/pembayaran', [PemesananController::class, 'indexPembayaran'])->name('pembayaran.index'); 
     
     Route::get('/riwayat', [PemesananController::class, 'indexRiwayatPelanggan'])->name('riwayat.index'); 
 });
@@ -89,11 +78,11 @@ Route::middleware([PelangganAuth::class])->group(function () {
 Route::post('/pembayaran/store', [PemesananController::class, 'storePembayaran'])->name('pembayaran.storePembayaran');
 
 // ============== SIGNUP =================
-Route::get('/signup-pelanggan', function () {
+Route::get('/signup', function () {
     return view('customer/signup-pelanggan');
 });
 
-Route::post('/signup-pelanggan/store', [PelangganController::class, 'storePelanggan'])->name('signup-pelanggan.store');
+Route::post('/signup/store', [PelangganController::class, 'storePelanggan'])->name('signup.store');
 
 // ============== PRODUK & DETAIL PRODUK =================
 Route::get('/produk', [ProdukController::class, 'indexProdukPelanggan'])->name('produkPelanggan.index'); 
@@ -124,14 +113,16 @@ Route::get('/kontak', function () {
 });
 
 // ============== lOGOUT =================
-Route::post('/logout', function () { 
-    Auth::guard('pelanggan')->logout(); 
-    session()->forget('id'); 
-    session()->forget('username'); 
-    session()->forget('email'); 
-    session()->forget('no_telp'); 
-    session()->forget('alamat'); 
-    session()->forget('password'); 
-    session()->forget('keranjang');
-    return redirect()->route('login-pelanggan'); 
-})->name('pelanggan.logout');
+// Route::post('/logout', function () { 
+//     Auth::guard('pelanggan')->logout(); 
+//     session()->forget('id'); 
+//     session()->forget('username'); 
+//     session()->forget('email'); 
+//     session()->forget('no_telp'); 
+//     session()->forget('alamat'); 
+//     session()->forget('password'); 
+//     session()->forget('keranjang');
+//     return redirect()->route('login-pelanggan'); 
+// })->name('pelanggan.logout');
+
+Route::post('/logout', [AuthController::class, 'logoutPelanggan'])->name('pelanggan.logout');

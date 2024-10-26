@@ -200,7 +200,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-        const isLoggedIn = {!! session('username') ? 'true' : 'false' !!};
+        const isLoggedIn = {!! Auth::check() ? 'true' : 'false' !!};
         // Fungsi menambah produk ke LocalStorage
         function tambahKeKeranjang(id, nama, harga, foto_produk) {
             if (!isLoggedIn) {

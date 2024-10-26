@@ -5,26 +5,32 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Pelanggan;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PelangganController extends Controller
 {
     public function index()
     {
-        $pelanggans = Pelanggan::all();
-        return view('admin.pelanggan', compact('pelanggans'));
+        $pelanggans = User::where('role_id', 2)->get(); 
+        $user = Auth::user(); 
+        return view('admin.pelanggan', compact('pelanggans', 'user'));
     }
 
     public function indexProfile()
     {
-        $pelanggans = Pelanggan::all();
-        return view('customer.profile', compact('pelanggans'));
+        $pelanggans = User::where('role_id', 2)->get(); 
+        $user = Auth::user(); 
+        return view('customer.profile', compact('pelanggans', 'user'));
     }
 
     public function store(Request $request)
     {
-        DB::table('pelanggans')->insert([
+        // Insert the new customer with role_id = 2
+        DB::table('users')->insert([
+            'role_id' => 2, // Set role_id to 2 for customers
             'email' => $request->email,
             'username' => $request->username,
             'no_telp' => $request->no_telp,
@@ -37,7 +43,10 @@ class PelangganController extends Controller
 
     public function storePelanggan(Request $request)
     {
-        DB::table('pelanggans')->insert([
+    
+        // Insert the new customer with role_id = 2
+        DB::table('users')->insert([
+            'role_id' => 2, // Set role_id to 2 for customers
             'email' => $request->email,
             'username' => $request->username,
             'no_telp' => $request->no_telp,
@@ -45,24 +54,13 @@ class PelangganController extends Controller
             'password' => Hash::make($request->password),
         ]);
     
-        return redirect()->route('login-pelanggan')->with('success', 'Data berhasil ditambahkan');
-    }
-
-    public function edit($id)
-    {
-        $pelanggan = Pelanggan::find($id); // Cari pelanggan berdasarkan ID
-    
-        if (!$pelanggan) {
-            return redirect()->route('pelanggan.index')->with('error', 'Data tidak ditemukan.');
-        }
-    
-        return view('admin.pelanggan.edit', compact('pelanggan')); // Kirim data pelanggan ke view
+        return redirect()->route('login')->with('success', 'Data berhasil ditambahkan');
     }
 
     public function update(Request $request, $id)
     {
         // Mencari pelanggan berdasarkan ID
-        $pelanggan = Pelanggan::findOrFail($id); // Menggunakan findOrFail untuk langsung mengalihkan jika tidak ditemukan
+        $pelanggan = User::findOrFail($id); // Menggunakan findOrFail untuk langsung mengalihkan jika tidak ditemukan
     
         // Validasi data yang masuk
         $request->validate([
@@ -94,7 +92,7 @@ class PelangganController extends Controller
     public function updatePelanggan(Request $request, $id)
     {
         // Mencari pelanggan berdasarkan ID
-        $pelanggan = Pelanggan::findOrFail($id); // Menggunakan findOrFail untuk langsung mengalihkan jika tidak ditemukan
+        $pelanggan = User::findOrFail($id); // Menggunakan findOrFail untuk langsung mengalihkan jika tidak ditemukan
     
         // Validasi data yang masuk
         $request->validate([
@@ -136,7 +134,7 @@ class PelangganController extends Controller
 
     public function destroy($id)
     {
-        $pelanggan = Pelanggan::findOrFail($id);
+        $pelanggan = User::findOrFail($id);
         $pelanggan->delete();
 
         return redirect()->route('pelanggan.index')->with('success', 'Data berhasil dihapus!');

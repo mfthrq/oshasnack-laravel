@@ -184,50 +184,5 @@
     </script>
 </body>
 
-<!-- Modal Edit-->
-<div class="modal fade" id="formModalEdit" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content" style="background-color: #771e56;">
-            <div class="modal-header">
-                <h5 class="modal-title p-4" id="formModalLabel">Edit Data Profile</h5>
-                <button style="background-color: #FEC10E;" type="button" class="me-4 btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
-            </div>
-            <!-- Form untuk input data pelanggan -->
-            <form class="login-wrapper w-100" id="editForm" method="POST" action="{{ route('profile-pelanggan.update', session('id')) }}">
-                @csrf
-                @method('PUT')
-                <input type="hidden" value="{{ session('id') }}" name="id" id="editId">
-
-                <div class="mb-3">
-                    <label for="editEmail" class="form-label">Email</label>
-                    <input type="email" class="form-control" value="{{ session('email') }}" name="email" id="editEmail" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="editUsername" class="form-label">Username</label>
-                    <input type="text" class="form-control" value="{{ session('username') }}" name="username" id="editUsername" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="editNoTelp" class="form-label">No Telp</label>
-                    <input type="text" class="form-control" value="{{ session('no_telp') }}" name="no_telp" id="editNoTelp" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="editAlamat" class="form-label">Alamat</label>
-                    <input type="text" class="form-control" value="{{ session('alamat') }}" name="alamat" id="editAlamat" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="editPassword" class="form-label">Password (kosongkan jika tidak ingin mengubah)</label>
-                    <input type="password" class="form-control" name="password" id="editPassword" placeholder="Masukkan Password jika ingin mengganti">
-                </div>
-
-                <button type="submit" class="fw-bold rts-btn btn-primary radious-5 w-100"  style="color: #771e56;">Perbarui</button>
-            </form>
-        </div>
-    </div>
-</div>
-
 
 </html>

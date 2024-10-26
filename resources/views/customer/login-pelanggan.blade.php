@@ -42,7 +42,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 d-flex justify-content-center">
-                    <form class="login-wrapper" action="{{ route('pelanggan.login') }}" method="POST">
+                    <form class="login-wrapper" action="{{ route('customer.login.submit') }}" method="POST">
                         @csrf
                         @if ($errors->has('loginError'))
                             <div class="alert alert-danger">{{ $errors->first('loginError') }}</div>
@@ -62,7 +62,7 @@
                                 </div>
                             </div>
                         </div>
-                        <p class="mb-4">Belum punya akun? <a class="fw-bold" href="/signup-pelanggan">Signup</a></p>
+                        <p class="mb-4">Belum punya akun? <a class="fw-bold" href="/signup">Signup</a></p>
                         <button type="submit" class="fw-bold rts-btn btn-primary radious-5 mr--15 mb--15" style="color: #771E56;">Login</button>
                     </form>
                 </div> 

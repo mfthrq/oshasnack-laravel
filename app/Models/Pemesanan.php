@@ -9,7 +9,7 @@ class Pemesanan extends Model
 {
     use HasFactory;
 
-    // Tentukan tabel yang digunakan jika nama tabel tidak sesuai dengan konvensi
+    // Tentukan tabel yang digunakan
     protected $table = 'pemesanan';
 
     // Tentukan kolom yang dapat diisi
@@ -21,9 +21,9 @@ class Pemesanan extends Model
         'bukti_transaksi',
         'status',
     ];
-    
+
     public function pelanggan()
     {
-        return $this->belongsTo(Pelanggan::class, 'id_pelanggan'); // Ensure the foreign key is correct
+        return $this->belongsTo(User::class, 'id_pelanggan'); // Referencing the User model now
     }
 }

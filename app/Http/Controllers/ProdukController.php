@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Produk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProdukController extends Controller
 {
     public function index()
     {
         $produks = Produk::all();
-        return view('admin.produk-admin', compact('produks'));
+        $user = Auth::user(); 
+        return view('admin.produk-admin', compact('produks', 'user'));
     }
 
     public function indexProdukPelanggan()
@@ -59,17 +61,6 @@ class ProdukController extends Controller
 
         session()->flash('success', 'Data berhasil ditambahkan!');    
         return redirect()->route('produk.index')->with('success', 'Data produk berhasil ditambahkan!');
-    }
-
-    public function edit($id)
-    {
-        $produk = Produk::find($id); // Cari produk berdasarkan ID
-    
-        if (!$produk) {
-            return redirect()->route('produk.index')->with('error', 'Data tidak ditemukan.');
-        }
-    
-        return view('admin.produk.edit', compact('produk')); // Kirim data pelanggan ke view
     }
 
     public function update(Request $request, $id)

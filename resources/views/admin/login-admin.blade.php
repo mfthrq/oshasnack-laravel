@@ -36,13 +36,13 @@
 			<div class="geex-content__authentication__content p-0">
 				<div class="geex-content__authentication__content__wrapper">
 					<div class="geex-content__authentication__content__logo mt-5">
-						<a href="/admin/login-admin">
+						<a href="/admin/login">
 							<img class="logo-lite" src="{{ asset('assets/img/logo_oshasnack.jpg')}}" width="200px" alt="logo">
 							<img class="logo-dark" src="{{ asset('assets/img/logo_oshasnack.jpg')}}"  width="200px" alt="logo">
 						</a>
 					</div>
 					
-					<form id="signInForm" class="geex-content__authentication__form" action="{{ route('admin.login') }}" method="POST">
+					<form id="signInForm" class="geex-content__authentication__form" action="{{ route('admin.login.submit') }}" method="POST">
 						@csrf
 						<h2 class="geex-content__authentication__title">Login Admin Oshasnack</h2>
 						@if ($errors->has('loginError'))

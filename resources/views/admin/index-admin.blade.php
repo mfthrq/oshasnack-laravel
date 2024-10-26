@@ -37,7 +37,7 @@
             <div class="geex-content__header">
                 <div class="geex-content__header__content">
                     <h2 class="geex-content__header__title">Dashboard</h2>
-                    <p class="geex-content__header__subtitle">Selamat datang {{ Auth::guard('admin')->user()->name }} di Website Admin Oshasnack!</p>
+                    <p class="geex-content__header__subtitle">Selamat datang {{ $user->username }} di Website Admin Oshasnack!</p>
                 </div>
 
                 @include('layouts.header')

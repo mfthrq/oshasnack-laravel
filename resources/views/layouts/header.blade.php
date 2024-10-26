@@ -16,7 +16,7 @@
                             <img src="{{ asset('assets/img/avatar/user.png') }}" alt="user" />
                         </div>
                         <div class="geex-content__header__popup__header__content">
-                            <h3 class="geex-content__header__popup__header__title">{{ Auth::guard('admin')->user()->name }}</h3>
+                            <h3 class="geex-content__header__popup__header__title">{{ $user->username }} </h3>
                         </div>
                     </div>
                     <div class="geex-content__header__popup__footer mt-3">

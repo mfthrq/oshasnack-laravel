@@ -119,22 +119,22 @@
                                 Diri</h3>
                             <h6> Nama Lengkap </h6>
                             <div class="service-sm" data-sal-delay="300" data-sal-duration="800" data-sal="slide-up">
-                                <p>{{ session('username') }}</p>
+                                <p>{{ $user->username }}</p>
                             </div>
 
                             <h6> Email </h6>
                             <div class="service-sm" data-sal-delay="300" data-sal-duration="800" data-sal="slide-up">
-                                <p>{{ session('email') }}</p>
+                                <p>{{ $user->email }}</p>
                             </div>
 
                             <h6> Nomor Telepon </h6>
                             <div class="service-sm" data-sal-delay="300" data-sal-duration="800" data-sal="slide-up">
-                                <p>{{ session('no_telp') }}</p>
+                                <p>{{ $user->no_telp }}</p>
                             </div>
 
                             <h6> Alamat </h6>
                             <div class="service-sm" data-sal-delay="300" data-sal-duration="800" data-sal="slide-up">
-                                <p>{{ session('alamat') }}</p>
+                                <p>{{ $user->alamat }}</p>
                             </div>
 
                         </div>
@@ -152,7 +152,7 @@
                             <div class="shipping-location">
                                 <span class="change-address text-white">
                                     <i class="fal fa-map-marker-alt mr--5"></i>
-                                    {{ session('alamat') }}
+                                    {{ $user->alamat }}
                                 </span>
                                 </span>
                             </div>
@@ -173,7 +173,7 @@
                         <form class="login-wrapper p-0 w-100 mt-4" style="border: none;" enctype="multipart/form-data"
                             id="payment-form" method="POST">
                             @csrf
-                            <input type="hidden" name="id_pelanggan" id="id_pelanggan" value="{{ session('id') }}">
+                            <input type="hidden" name="id_pelanggan" id="id_pelanggan" value="{{ $user->id }}">
                             <input type="hidden" name="tanggal_pemesanan" id="tanggal_pemesanan" value="">
                             <input type="hidden" name="total_produk" id="total_produk" value="">
                             <input type="hidden" name="total_biaya_transaksi" id="total_biaya_transaksi"

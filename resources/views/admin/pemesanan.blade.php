@@ -356,7 +356,7 @@
                                         <form action="{{ route('pemesanan.destroy', $pemesanan->id) }}" method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="geex-btn geex-btn--danger" onclick="confirmDelete()">Hapus</button>
+                                            <button type="submit" class="geex-btn geex-btn--danger" onclick="return confirmDelete(event)">Hapus</button>
                                         </form>
                                         <button class="ms-2 geex-btn edit-btn" style="background-color: #FEC10F;" 
                                         data-bs-toggle="modal" 
@@ -402,8 +402,12 @@
     @endif
 
     <script>
-        function confirmDelete() {
-            return confirm('Yakin ingin menghapus data?');
+        function confirmDelete(event) {
+            if (!confirm('Yakin ingin menghapus data?')) {
+                event.preventDefault(); // Mencegah form dari submit jika Cancel dipilih
+                return false;
+            }
+            return true;
         }
     </script>
 </body>
@@ -440,13 +444,13 @@
                     <div class="mb-3">
                         <label for="total_produk" class="form-label">Total Produk</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input type="number" name="total_produk" class="form-control" required />
+                            <input type="number" name="total_produk" class="form-control" min="1" required />
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="total_biaya_transaksi" class="form-label">Total Biaya Transaksi</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input type="number" name="total_biaya_transaksi" class="form-control" required />
+                            <input type="number" name="total_biaya_transaksi" class="form-control" min="1" required />
                         </div>
                     </div>
                     <div class="mb-3">
@@ -512,13 +516,13 @@
                     <div class="mb-3">
                         <label for="total_produk" class="form-label">Total Produk</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input type="number" name="total_produk" id="editTotalProduk" class="form-control" required />
+                            <input type="number" name="total_produk" id="editTotalProduk" class="form-control" min="1" required />
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="total_biaya_transaksi" class="form-label">Total Biaya Transaksi</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input type="number" name="total_biaya_transaksi" id="editTotalBiayaTransaksi" class="form-control" required />
+                            <input type="number" name="total_biaya_transaksi" id="editTotalBiayaTransaksi" class="form-control" min="1" required />
                         </div>
                     </div>
                     <div class="mb-3">

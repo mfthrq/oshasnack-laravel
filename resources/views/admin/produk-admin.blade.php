@@ -194,7 +194,7 @@
                         <label for="harga" class="form-label">Harga</label>
                         <div class="geex-content__form__single__box mb-20">
                             <input type="number" class="form-control" name="harga"
-                                placeholder="Masukkan Harga Produk" required />
+                                placeholder="Masukkan Harga Produk" min="1" required />
                         </div>
                     </div>
                     <div class="mb-3">
@@ -258,7 +258,7 @@
                         <label for="harga" class="form-label">Harga</label>
                         <div class="geex-content__form__single__box mb-20">
                             <input type="number" class="form-control" id="editHarga" name="harga"
-                                placeholder="Masukkan Harga Produk" required />
+                                placeholder="Masukkan Harga Produk" min="1" required />
                         </div>
                     </div>
                     <div class="mb-3">

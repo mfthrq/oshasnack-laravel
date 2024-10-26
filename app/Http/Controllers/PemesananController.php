@@ -4,59 +4,78 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pemesanan;
-use App\Models\Pelanggan;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PemesananController extends Controller
 {
     public function index()
     {
         $pemesanans = Pemesanan::with('pelanggan')->get();
-        $pelanggans = Pelanggan::all(); // Fetch all customers
-        return view('admin.pemesanan', compact('pemesanans', 'pelanggans')); // Pass $pelanggans to the view
+        $pelanggans = User::where('role_id', 2)->get(); // Fetch all customers
+        $user = Auth::user(); 
+        return view('admin.pemesanan', compact('pemesanans', 'pelanggans', 'user')); // Pass $pelanggans to the view
     }
 
     public function indexBerhasil()
     {
         $pemesanans = Pemesanan::where('status', 'Berhasil')->get();
-        $pelanggans = Pelanggan::all(); // Fetch all customers
-        return view('admin.pemesanan', compact('pemesanans', 'pelanggans'));
+        $pelanggans = User::where('role_id', 2)->get(); // Fetch all customers
+        $user = Auth::user(); 
+        return view('admin.pemesanan', compact('pemesanans', 'pelanggans', 'user'));
     }
     
     public function indexDiverifikasi()
     {
         $pemesanans = Pemesanan::where('status', 'Diverifikasi')->get();
-        $pelanggans = Pelanggan::all(); // Fetch all customers
-        return view('admin.pemesanan', compact('pemesanans', 'pelanggans'));
+        $pelanggans = User::where('role_id', 2)->get(); // Fetch all customers
+        $user = Auth::user(); 
+        return view('admin.pemesanan', compact('pemesanans', 'pelanggans', 'user'));
     }
     
     public function indexGagal()
     {
         $pemesanans = Pemesanan::where('status', 'Gagal')->get();
-        $pelanggans = Pelanggan::all(); // Fetch all customers
-        return view('admin.pemesanan', compact('pemesanans', 'pelanggans'));
+        $pelanggans = User::where('role_id', 2)->get(); // Fetch all customers
+        $user = Auth::user(); 
+        return view('admin.pemesanan', compact('pemesanans', 'pelanggans', 'user'));
     }
 
     public function indexRiwayatPelanggan()
     {
-        $idPelanggan = session('id');
-
-        // Ambil semua pemesanan yang terkait dengan ID pelanggan dari session
+        // Get the currently authenticated user
+        $user = Auth::user();
+    
+        // Check if the user is authenticated
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['loginError' => 'You need to log in to view this page.']);
+        }
+    
+        // Get the ID of the logged-in customer
+        $idPelanggan = $user->id;
+    
+        // Fetch all orders related to the logged-in customer
         $pemesanans = Pemesanan::with('pelanggan')
-            ->where('id_pelanggan', $idPelanggan) // Filter berdasarkan id_pelanggan dari session
+            ->where('id_pelanggan', $idPelanggan) // Filter by id_pelanggan
             ->get();
     
         return view('customer.riwayat', compact('pemesanans'));
     }
-    
+
+    public function indexPembayaran()
+    {
+        $user = Auth::user();
+        return view('customer.pembayaran', compact('user'));
+    }
 
     public function store(Request $request)
     {
         $request->validate([
-            'id_pelanggan' => 'required|exists:pelanggans,id', // Validate that the pelanggan exists
+            'id_pelanggan' => 'required|exists:users,id,role_id,2', // Validate that the pelanggan exists
             'tanggal_pemesanan' => 'required|date',
             'total_produk' => 'required|integer|min:1', // Assuming total_produk is an integer
-            'total_biaya_transaksi' => 'required|numeric|min:0', // Assuming it's a number
+            'total_biaya_transaksi' => 'required|numeric|min:1', // Assuming it's a number
             'bukti_transaksi' => 'required|image|mimes:jpg,jpeg,png|max:5048',
             'status' => 'required|string',
         ]);
@@ -85,10 +104,10 @@ class PemesananController extends Controller
     public function storePembayaran(Request $request)
     {
         $request->validate([
-            'id_pelanggan' => 'required|exists:pelanggans,id', // Validate that the pelanggan exists
+            'id_pelanggan' => 'required|exists:users,id,role_id,2', // Validate that the pelanggan exists
             'tanggal_pemesanan' => 'required|date',
             'total_produk' => 'required|integer|min:1', // Assuming total_produk is an integer
-            'total_biaya_transaksi' => 'required|numeric|min:0', // Assuming it's a number
+            'total_biaya_transaksi' => 'required|numeric|min:1', // Assuming it's a number
             'bukti_transaksi' => 'required|image|mimes:jpg,jpeg,png|max:5048',
             'status' => 'required|string',
         ]);
@@ -113,18 +132,6 @@ class PemesananController extends Controller
         return response()->json(['success' => 'Data pembayaran berhasil disimpan!']);
     }
 
-    public function edit($id)
-    {
-        $pemesanan = Pemesanan::find($id); // Cari pemesanan berdasarkan ID
-        $pelanggans = Pelanggan::all();
-        
-        if (!$pemesanan || !$pelanggans) {
-            return redirect()->route('pemesanan.index')->with('error', 'Data tidak ditemukan.');
-        }
-    
-        return view('admin.pemesanan.edit', compact('pemesanan', 'pelanggans')); // Kirim data pelanggan ke view
-    }
-
     public function update(Request $request, $id)
     {
         // Mencari pemesanan berdasarkan ID
@@ -132,12 +139,12 @@ class PemesananController extends Controller
     
         // Validasi data yang masuk
         $request->validate([
-            'id_pelanggan' => 'required|exists:pelanggans,id',
+            'id_pelanggan' => 'required|exists:users,id,role_id,2', // Validate that the pelanggan exists
             'tanggal_pemesanan' => 'required|date',
-            'total_produk' => 'required|integer|min:1',
-            'total_biaya_transaksi' => 'required|numeric|min:0',
-            'status' => 'required|in:Diverifikasi,Berhasil,Gagal',
+            'total_produk' => 'required|integer|min:1', // Assuming total_produk is an integer
+            'total_biaya_transaksi' => 'required|numeric|min:1', // Assuming it's a number
             'bukti_transaksi' => 'nullable|image|mimes:jpg,jpeg,png|max:5048',
+            'status' => 'required|string',
         ]);
     
         // Memperbarui data pemesanan
