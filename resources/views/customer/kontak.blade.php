@@ -42,7 +42,7 @@
                             <h6 class="title">Kontak WhatsApp</h6>
                         </a>
                         <a href="https://wa.me/6285697599248">
-                            <h6 class="title mb--0">0856-9759-9248</h6>
+                            <h6 class="title mb--0 fs-4">0856-9759-9248</h6>
                         </a>
                     </div>
                 </div>
@@ -55,8 +55,8 @@
                         </div>
                             <h6 class="title">Email</h6>
                         </a>
-                        <a href="mailto:oshasnacks@gmail.com">
-                            <h6 class="title mb--0">oshasnacks@gmail.com</h6>
+                        <a href="mailto:randyraharja1989@gmail.com">
+                            <h6 class="title mb--0 fs-4">randyraharja1989@gmail.com</h6>
                         </a>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                         </div>
                             <h6 class="title"> Alamat </h6>
                         <a href="https://www.google.com/maps/search/Komplek+IPB+Baranang+Siang+4,Jalan+Mendut+51,Tanah+Baru,+Bogor,+Jawa+Barat,+16154+Indonesia/@-6.5924585,106.8171715,17z/data=!3m1!4b1?entry=ttu&g_ep=EgoyMDI0MTAwNy4xIKXMDSoASAFQAw%3D%3D">
-                            <h6 class="title mb--0"> Komplek IPB Baranang Siang 4 Jalan Mendut 51 Tanah Baru, Bogor </h6>
+                            <h6 class="title mb--0 fs-4"> Komplek IPB Baranang Siang 4 Jalan Mendut 51 Tanah Baru, Bogor </h6>
                         </a>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
                             <img src="assets/assets_customer/images/icon/contact/04.png" alt="Nft_contact">
                         </div>
                             <h6 class="title"> Buka Setiap Hari </h6>
-                            <h6 class="title mb--0"> 24 Jam </h6>
+                            <h6 class="title mb--0 fs-4"> 24 Jam </h6>
                     </div>
                 </div>
                 <!-- single get in touch -->

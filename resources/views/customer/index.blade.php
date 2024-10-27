@@ -60,7 +60,7 @@
                 data-sal-duration="800"
                 data-sal="slide-up"
               >
-                <h3 class="mb-0"  style="color: #771e56; font-weight: bold;"><span class="counter">1000</span>+</h3>
+                <h3 class="mb-0"  style="color: #771e56; font-weight: bold;"><span class="counter">10000</span>+</h3>
                 <p style="color: #771e56; font-weight: bold;">Produk Terjual</p>
               </div>
             </div>

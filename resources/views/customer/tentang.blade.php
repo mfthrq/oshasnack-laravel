@@ -278,7 +278,7 @@
                     <div class="short-category-wrapper" data-sal-delay="300" data-sal-duration="800" data-sal="slide-up">
                         <img style="border-radius: 100%;" src="assets/assets_customer/images/icon/categories/Produk Terjual.png" alt="Nft_categorys">
                         <div class="discription">
-                            <h4 class="title" style="color: #670276 ;"> 1000+ </h4>
+                            <h4 class="title" style="color: #670276 ;"> 10000+ </h4>
                             <span class="desig fw-bold" style="color: #670276;"> Produk Terjual </span>
                         </div>
                     </div>

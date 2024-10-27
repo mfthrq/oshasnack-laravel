@@ -430,9 +430,10 @@
                     </div>                    
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <div class="geex-content__form__single__box mb-20">
-                            <input placeholder="Masukkan Password" type="password" name="password" class="form-control" required />
-                        </div>
+                        <div class="geex-content__authentication__form-group">
+							<input type="password" id="password" name="password" placeholder="Password" required>
+							<i class="uil-eye toggle-password-type" onclick="togglePassword()"></i>
+						</div>
                     </div>
                     <button type="submit" class="geex-btn geex-btn--primary">Submit</button>
                 </form>
@@ -481,9 +482,10 @@
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password (kosongkan jika tidak ingin mengubah)</label>
-                        <div class="geex-content__form__single__box mb-20">
-                            <input type="password" class="form-control" name="password" placeholder="Masukkan Password jika ingin mengganti">
-                        </div>
+                        <div class="geex-content__authentication__form-group">
+							<input type="password" id="editPassword" name="password" placeholder="Password">
+							<i class="uil-eye toggle-password-type" onclick="toggleEditPassword()"></i>
+						</div>
                     </div>
                     <button type="submit" class="geex-btn geex-btn--primary">Perbarui</button>
                 </form>
@@ -512,6 +514,38 @@
             document.getElementById('editForm').action = `/admin/pelanggan/${id}`; // Ganti sesuai route Anda
         });
     });
+</script>
+
+<script>
+    function togglePassword() {
+        const passwordInput = document.getElementById('password');
+        const passwordToggleIcon = document.querySelector('.toggle-password-type');
+
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text'; // Ubah menjadi text
+            passwordToggleIcon.classList.remove('uil-eye'); // Ubah ikon menjadi mata terbuka
+            passwordToggleIcon.classList.add('uil-eye-slash'); // Ubah ikon menjadi mata tertutup
+        } else {
+            passwordInput.type = 'password'; // Kembali ke password
+            passwordToggleIcon.classList.remove('uil-eye-slash'); // Ubah ikon kembali
+            passwordToggleIcon.classList.add('uil-eye');
+        }
+    }
+
+    function toggleEditPassword() {
+        const passwordInput = document.getElementById('editPassword');
+        const passwordToggleIcon = document.querySelector('.toggle-password-type');
+
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text'; // Ubah menjadi text
+            passwordToggleIcon.classList.remove('uil-eye'); // Ubah ikon menjadi mata terbuka
+            passwordToggleIcon.classList.add('uil-eye-slash'); // Ubah ikon menjadi mata tertutup
+        } else {
+            passwordInput.type = 'password'; // Kembali ke password
+            passwordToggleIcon.classList.remove('uil-eye-slash'); // Ubah ikon kembali
+            passwordToggleIcon.classList.add('uil-eye');
+        }
+    }
 </script>
 
 </html>

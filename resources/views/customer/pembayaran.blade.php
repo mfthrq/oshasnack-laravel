@@ -165,9 +165,9 @@
                             </div>
                             <!-- total amount area end -->
                             <div>
-                                <img src="{{ asset('assets/assets_customer/images/qrcode_contoh.png') }}"
-                                    alt="">
-                                <h6 class="fs-3 mt-4 fw-normal">Lakukan pembayaran dengan scan QR Code QRIS diatas.</h6>
+                                <img src="{{ asset('assets/assets_customer/images/logo_bca.png') }}" height="80px" width="80px" style="background-color: #FFFFFF; border-radius: 10px;" class="p-3" alt="">
+                                <h6 class="fs-3 mt-4 mb-0"> Nomor Rekening: 7380297137</h6>
+                                <h7 class="mt-0 fw-normal text-white">A/N Rosani Aninditya</h7>
                             </div>
                         </div>
                         <form class="login-wrapper p-0 w-100 mt-4" style="border: none;" enctype="multipart/form-data"
