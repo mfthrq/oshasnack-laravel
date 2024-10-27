@@ -289,7 +289,7 @@
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: 'Terjadi kesalahan saat mengirim data pembayaran!',
+                        text: error.message || 'Terjadi kesalahan saat mengirim data pembayaran!',
                     });
                 });
         });

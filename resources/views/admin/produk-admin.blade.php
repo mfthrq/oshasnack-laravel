@@ -91,7 +91,7 @@
                                     </td>
                                     <td>
                                         <div style="max-height: 100px; overflow-y: auto;">
-                                            {{ $produk->harga }}
+                                            Rp{{ number_format($produk->harga, 0, ',', '.') }}
                                         </div>
                                     </td>
                                     <td>
@@ -179,7 +179,7 @@
                     <div class="mb-3">
                         <label for="komposisi" class="form-label">Komposisi</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input type="text" placeholder="Masukkan Komposisi Produk" type="text"
+                            <input type="text" placeholder="Contoh: Keju, Tepung, Bumbu Racikan" type="text"
                                 name="komposisi" class="form-control" required />
                         </div>
                     </div>
@@ -187,7 +187,7 @@
                         <label for="keunggulan" class="form-label">Keunggulan</label>
                         <div class="geex-content__form__single__box mb-20">
                             <input type="text" class="form-control" name="keunggulan"
-                                placeholder="Masukkan Keunggulan Produk" required />
+                                placeholder="Contoh: Halal, Krispi, Enak" required />
                         </div>
                     </div>
                     <div class="mb-3">
@@ -243,7 +243,7 @@
                     <div class="mb-3">
                         <label for="komposisi" class="form-label">Komposisi</label>
                         <div class="geex-content__form__single__box mb-20">
-                            <input type="text" placeholder="Masukkan Komposisi Produk" id="editKomposisi"
+                            <input type="text" placeholder="Contoh: Keju, Tepung, Bumbu Racikan" id="editKomposisi"
                                 type="text" name="komposisi" class="form-control" required />
                         </div>
                     </div>
@@ -251,7 +251,7 @@
                         <label for="keunggulan" class="form-label">Keunggulan</label>
                         <div class="geex-content__form__single__box mb-20">
                             <input type="text" class="form-control" id="editKeunggulan" type="text"
-                                name="keunggulan" placeholder="Masukkan Keunggulan Produk" required />
+                                name="keunggulan" placeholder="Contoh: Halal, Krispi, Enak" required />
                         </div>
                     </div>
                     <div class="mb-3">
@@ -309,7 +309,7 @@
         var fileInput = document.getElementById('foto_produk');
         var file = fileInput.files[0];
 
-        if (file && file.size > 5048 * 1024) { // 5048 KB = 5MB
+        if (file && file.size > 10048 * 1024) { // 5048 KB = 5MB
             e.preventDefault(); // Mencegah submit form
 
             // Simulasikan klik tombol close
@@ -319,7 +319,7 @@
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'File tidak dapat lebih dari 5MB!'
+                text: 'File tidak dapat lebih dari 10MB!'
             });
         }
     });

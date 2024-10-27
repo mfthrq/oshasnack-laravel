@@ -39,7 +39,7 @@ class ProdukController extends Controller
             'komposisi' => 'required|string|max:500',
             'keunggulan' => 'required|string|max:500',
             'harga' => 'required|string|max:500',
-            'foto_produk' => 'required|image|mimes:jpg,jpeg,png|max:5048',
+            'foto_produk' => 'required|image|mimes:jpg,jpeg,png|max:10048',
         ]);
     
         // Mengambil file gambar
