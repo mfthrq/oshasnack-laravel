@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="{{ asset('assets/assets_customer/css/vendor/bootstrap.min.css') }}">
     <!-- style css -->
     <link rel="stylesheet" href="{{ asset('assets/assets_customer/css/style.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <style>
         .form-control:focus {
@@ -28,27 +28,38 @@
             box-shadow: none;
             color: #ffffff;
         }
+
         /* Atur ukuran SweetAlert */
         .swal2-popup {
-            width: 500px !important; /* Atur lebar popup sesuai kebutuhan */
-            max-width: 90vw; /* Pastikan popup tidak melebihi lebar layar */
-            font-size: 15px; /* Atur ukuran font di dalam popup */
+            width: 500px !important;
+            /* Atur lebar popup sesuai kebutuhan */
+            max-width: 90vw;
+            /* Pastikan popup tidak melebihi lebar layar */
+            font-size: 15px;
+            /* Atur ukuran font di dalam popup */
         }
 
         /* Atur ukuran tombol OK */
         .swal2-confirm {
-            font-size: 15px; /* Atur ukuran font tombol */
-            padding: 10px 20px; /* Atur padding untuk tombol */
-            min-width: 100px; /* Atur lebar minimum tombol */
-            background-color: #771E56 !important; /* Atur warna latar belakang tombol */
-            color: #fff; /* Atur warna teks tombol menjadi putih */
-            border: none; /* Hapus border jika ada */
+            font-size: 15px;
+            /* Atur ukuran font tombol */
+            padding: 10px 20px;
+            /* Atur padding untuk tombol */
+            min-width: 100px;
+            /* Atur lebar minimum tombol */
+            background-color: #771E56 !important;
+            /* Atur warna latar belakang tombol */
+            color: #fff;
+            /* Atur warna teks tombol menjadi putih */
+            border: none;
+            /* Hapus border jika ada */
         }
 
         /* Ubah warna saat tombol hover */
         .swal2-confirm:hover {
             color: #771E56;
-            background-color: #FEC10E !important; /* Warna latar belakang saat hover */
+            background-color: #FEC10E !important;
+            /* Warna latar belakang saat hover */
         }
     </style>
 </head>
@@ -63,8 +74,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 d-flex justify-content-center">
-                    <form id="signupForm" action="{{ route('signup.store') }}" method="POST"
-                        class="login-wrapper">
+                    <form id="signupForm" action="{{ route('signup.store') }}" method="POST" class="login-wrapper">
                         @csrf
                         <div class="mb-5">
                             <label for="exampleInputEmail1" class="form-label">Email Address</label>
@@ -98,6 +108,11 @@
                                     </span>
                                 </div>
                             </div>
+                        </div>
+                        <div id="passwordRequirements" class="fw-bold alert alert-danger bg-warning"
+                            style="display: none; border: none;">
+                            Password harus mengandung minimal 8 karakter, huruf besar, huruf kecil, angka, dan
+                            karakter khusus (@$!%*?&).
                         </div>
 
                         <div class="mb-5">
@@ -166,7 +181,7 @@
         function togglePassword() {
             const passwordInput = document.getElementById('exampleInputPassword1');
             const eyeIcon = document.getElementById('eyeIcon');
-    
+
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
                 eyeIcon.classList.remove('fa-eye');
@@ -177,11 +192,11 @@
                 eyeIcon.classList.add('fa-eye');
             }
         }
-    
+
         function toggleKonfirmPassword() {
             const passwordInput = document.getElementById('exampleInputPassword2');
             const eyeIcon = document.getElementById('eyeIcon2');
-    
+
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
                 eyeIcon.classList.remove('fa-eye');
@@ -192,19 +207,19 @@
                 eyeIcon.classList.add('fa-eye');
             }
         }
-    
+
         // Event listener untuk memeriksa kesamaan password saat pengguna mengetik
         document.getElementById("exampleInputPassword1").addEventListener("input", checkPasswords);
         document.getElementById("exampleInputPassword2").addEventListener("input", checkPasswords);
-    
+
         document.getElementById("signupForm").addEventListener("submit", function(event) {
             var password = document.getElementById("exampleInputPassword1").value;
             var confirmPassword = document.getElementById("exampleInputPassword2").value;
-    
+
             // Cek apakah password dan konfirmasi password cocok
             if (password !== confirmPassword) {
                 event.preventDefault(); // Mencegah form dari submit
-    
+
                 // Tampilkan alert menggunakan SweetAlert
                 Swal.fire({
                     icon: 'error',
@@ -214,19 +229,31 @@
                 });
             }
         });
-    
+
         function checkPasswords() {
             var password = document.getElementById("exampleInputPassword1").value;
             var confirmPassword = document.getElementById("exampleInputPassword2").value;
             var passwordError = document.getElementById("passwordError");
-    
-            // Cek apakah password dan konfirmasi password cocok
-            if (password !== confirmPassword) {
-                passwordError.style.display = "block"; // Tampilkan pesan kesalahan
+            var passwordRequirements = document.getElementById("passwordRequirements");
+
+            // Regular expression to check password requirements
+            var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+            // Check if the password meets the requirements
+            if (!passwordRegex.test(password)) {
+                passwordRequirements.style.display = "block"; // Show requirements message
             } else {
-                passwordError.style.display = "none"; // Sembunyikan pesan kesalahan
+                passwordRequirements.style.display = "none"; // Hide requirements message
+            }
+
+            // Check if password and confirm password match
+            if (password !== confirmPassword) {
+                passwordError.style.display = "block"; // Show mismatch error
+            } else {
+                passwordError.style.display = "none"; // Hide mismatch error
             }
         }
+
     </script>
 </body>
 

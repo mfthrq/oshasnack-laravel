@@ -19,6 +19,7 @@ class Pemesanan extends Model
         'total_produk', // Kolom total produk
         'total_biaya_transaksi', // Kolom total biaya transaksi
         'bukti_transaksi',
+        'alamat',
         'status',
     ];
 

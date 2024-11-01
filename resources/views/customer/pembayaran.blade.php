@@ -176,8 +176,8 @@
                             <input type="hidden" name="id_pelanggan" id="id_pelanggan" value="{{ $user->id }}">
                             <input type="hidden" name="tanggal_pemesanan" id="tanggal_pemesanan" value="">
                             <input type="hidden" name="total_produk" id="total_produk" value="">
-                            <input type="hidden" name="total_biaya_transaksi" id="total_biaya_transaksi"
-                                value="">
+                            <input type="hidden" name="total_biaya_transaksi" id="total_biaya_transaksi" value="">
+                            <input type="hidden" name="alamat" id="alamat" value="{{ $user->alamat }}">
                             <input type="hidden" name="status" value="Diverifikasi">
                             <div class="custom-file-input">
                                 <input type="file" name="bukti_transaksi" id="bukti_transaksi" required

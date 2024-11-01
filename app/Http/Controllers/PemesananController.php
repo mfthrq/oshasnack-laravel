@@ -76,6 +76,7 @@ class PemesananController extends Controller
             'tanggal_pemesanan' => 'required|date',
             'total_produk' => 'required|integer|min:1', // Assuming total_produk is an integer
             'total_biaya_transaksi' => 'required|numeric|min:1', // Assuming it's a number
+            'alamat' => 'required',
             'bukti_transaksi' => 'required|image|mimes:jpg,jpeg,png|max:5048',
             'status' => 'required|string',
         ]);
@@ -93,6 +94,7 @@ class PemesananController extends Controller
             'tanggal_pemesanan' => $request->tanggal_pemesanan,
             'total_produk' => $request->total_produk,
             'total_biaya_transaksi' => $request->total_biaya_transaksi,
+            'alamat' => $request->alamat,
             'bukti_transaksi' => $filename,
             'status' => $request->status,
         ]);
@@ -108,6 +110,7 @@ class PemesananController extends Controller
             'tanggal_pemesanan' => 'required|date',
             'total_produk' => 'required|integer|min:1', // Assuming total_produk is an integer
             'total_biaya_transaksi' => 'required|numeric|min:1', // Assuming it's a number
+            'alamat' => 'required', // Assuming it's a number
             'bukti_transaksi' => 'required|image|mimes:jpg,jpeg,png|max:5048',
             'status' => 'required|string',
         ]);
@@ -125,6 +128,7 @@ class PemesananController extends Controller
             'tanggal_pemesanan' => $request->tanggal_pemesanan,
             'total_produk' => $request->total_produk,
             'total_biaya_transaksi' => $request->total_biaya_transaksi,
+            'alamat' => $request->alamat,
             'bukti_transaksi' => $filename,
             'status' => $request->status,
         ]);
@@ -143,6 +147,7 @@ class PemesananController extends Controller
             'tanggal_pemesanan' => 'required|date',
             'total_produk' => 'required|integer|min:1', // Assuming total_produk is an integer
             'total_biaya_transaksi' => 'required|numeric|min:1', // Assuming it's a number
+            'alamat' => 'required', // Assuming it's a number
             'bukti_transaksi' => 'nullable|image|mimes:jpg,jpeg,png|max:5048',
             'status' => 'required|string',
         ]);
@@ -151,6 +156,7 @@ class PemesananController extends Controller
         $pemesanan->id_pelanggan = $request->id_pelanggan;
         $pemesanan->tanggal_pemesanan = $request->tanggal_pemesanan;
         $pemesanan->total_produk = $request->total_produk;
+        $pemesanan->alamat = $request->alamat;
         $pemesanan->total_biaya_transaksi = $request->total_biaya_transaksi;
         $pemesanan->status = $request->status;
 

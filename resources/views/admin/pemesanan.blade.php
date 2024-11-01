@@ -328,6 +328,7 @@
                             <th style="width: 20%">Tanggal Pemesanan</th>
                             <th style="width: 20%">Total Produk</th>
                             <th style="width: 20%">Total Biaya Transaksi</th>
+                            <th style="width: 20%">Alamat</th>
                             <th style="width: 20%">Bukti Transaksi</th>
                             <th style="width: 20%">Status</th>
                             <th style="width: 20%">Aksi</th>
@@ -346,6 +347,7 @@
                                     <td>{{ $pemesanan->tanggal_pemesanan }}</td>
                                     <td>{{ $pemesanan->total_produk }}</td>
                                     <td>Rp{{ number_format($pemesanan->total_biaya_transaksi, 0, ',', '.') }}</td>
+                                    <td>{{ $pemesanan->alamat }}</td>
                                     <td><img src="{{ asset('assets/bukti_transaksi/' . $pemesanan->bukti_transaksi) }}" alt="Bukti Transaksi" width="100"></td>
                                     <td>
                                         <span style="font-size: 13px;" class="badge {{ $pemesanan->status == 'Diverifikasi' ? 'bg-warning' : ($pemesanan->status == 'Berhasil' ? 'bg-success' : 'bg-danger') }}">
@@ -366,6 +368,7 @@
                                         data-tanggal_pemesanan="{{ $pemesanan->tanggal_pemesanan }}"
                                         data-total_produk="{{ $pemesanan->total_produk }}"
                                         data-total_biaya_transaksi="{{ $pemesanan->total_biaya_transaksi }}"
+                                        data-alamat="{{ $pemesanan->alamat }}"
                                         data-bukti_transaksi="{{ $pemesanan->bukti_transaksi }}"
                                         data-status="{{ $pemesanan->status }}">
                                         Edit
@@ -454,6 +457,12 @@
                         </div>
                     </div>
                     <div class="mb-3">
+                        <label for="alamat" class="form-label">Alamat</label>
+                        <div class="geex-content__form__single__box mb-20">
+                            <input type="text" name="alamat" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="mb-3">
                         <label for="bukti_transaksi" class="form-label">Bukti Transaksi</label>
                         <div class="geex-content__form__single__box mb-20">
                             <input type="file" class="form-control" name="bukti_transaksi" id="bukti_transaksi" required accept="image/*">
@@ -526,6 +535,12 @@
                         </div>
                     </div>
                     <div class="mb-3">
+                        <label for="alamat" class="form-label">Alamat</label>
+                        <div class="geex-content__form__single__box mb-20">
+                            <input type="text" name="alamat" class="form-control" id="editAlamat"  required />
+                        </div>
+                    </div>
+                    <div class="mb-3">
                         <label for="bukti_transaksi" class="form-label">Bukti Transaksi</label>
                         <div class="geex-content__form__single__box mb-20">
                             <input type="file" class="form-control" name="bukti_transaksi" id="editBuktiTransaksi" accept="image/*">
@@ -558,6 +573,7 @@
             const tanggal_pemesanan = this.getAttribute('data-tanggal_pemesanan');
             const total_produk = this.getAttribute('data-total_produk');
             const total_biaya_transaksi = this.getAttribute('data-total_biaya_transaksi');
+            const alamat = this.getAttribute('data-alamat');
             const bukti_transaksi = this.getAttribute('data-bukti_transaksi');
             const status = this.getAttribute('data-status');
 
@@ -567,6 +583,7 @@
             document.getElementById('editTanggalPemesanan').value = tanggal_pemesanan;
             document.getElementById('editTotalProduk').value = total_produk;
             document.getElementById('editTotalBiayaTransaksi').value = total_biaya_transaksi;
+            document.getElementById('editAlamat').value = alamat;
             document.getElementById('editStatus').value = status;
 
             // Set src dari gambar saat ini

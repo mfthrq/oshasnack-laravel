@@ -82,6 +82,9 @@
                                             <span class="fw-bold" style="color: #FEC10E;">Total Biaya</span>
                                         </th>
                                         <th>
+                                            <span class="fw-bold" style="color: #FEC10E;">Alamat</span>
+                                        </th>
+                                        <th>
                                             <span class="fw-bold" style="color: #FEC10E;">Bukti Transaksi</span>
                                         </th>
                                         <th>
@@ -96,6 +99,7 @@
                                             <td><span>{{ $pemesanan->tanggal_pemesanan }}</span></td>
                                             <td><span>{{ $pemesanan->total_produk }}</span></td>
                                             <td><span>Rp{{ number_format($pemesanan->total_biaya_transaksi, 0, ',', '.') }}</span></td>
+                                            <td><span>{{ $pemesanan->alamat }}</span></td>
                                             <td>
                                                 @if ($pemesanan->bukti_transaksi)
                                                     <img src="{{ asset('assets/bukti_transaksi/' . $pemesanan->bukti_transaksi) }}" alt="Bukti Transaksi" style="width: 100px;">
@@ -111,7 +115,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="6" align="center"><span>Tidak ada riwayat pemesanan.</span></td>
+                                            <td colspan="7" align="center"><span>Tidak ada riwayat pemesanan.</span></td>
                                         </tr>
                                     @endforelse
                                 </tbody>
