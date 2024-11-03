@@ -23,11 +23,44 @@
     <link rel="stylesheet" href="{{ asset('assets/assets_customer/css/vendor/bootstrap.min.css') }}">
     <!-- style css -->
     <link rel="stylesheet" href="{{ asset('assets/assets_customer/css/style.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <style>
         .form-control:focus {
             background-color: initial;
             box-shadow: none;
             color: #ffffff;
+        }
+        /* Atur ukuran SweetAlert */
+        .swal2-popup {
+            width: 500px !important;
+            /* Atur lebar popup sesuai kebutuhan */
+            max-width: 90vw;
+            /* Pastikan popup tidak melebihi lebar layar */
+            font-size: 15px;
+            /* Atur ukuran font di dalam popup */
+        }
+
+        /* Atur ukuran tombol OK */
+        .swal2-confirm {
+            font-size: 15px;
+            /* Atur ukuran font tombol */
+            padding: 10px 20px;
+            /* Atur padding untuk tombol */
+            min-width: 100px;
+            /* Atur lebar minimum tombol */
+            background-color: #771E56 !important;
+            /* Atur warna latar belakang tombol */
+            color: #fff;
+            /* Atur warna teks tombol menjadi putih */
+            border: none;
+            /* Hapus border jika ada */
+        }
+
+        /* Ubah warna saat tombol hover */
+        .swal2-confirm:hover {
+            color: #771E56;
+            background-color: #FEC10E !important;
+            /* Warna latar belakang saat hover */
         }
     </style>
 </head>
@@ -99,9 +132,22 @@
 
     <script src="assets/assets_customer/js/vendor/imageloded.js"></script>
     <script src="assets/assets_customer/js/vendor/bootstrap.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- main js -->
     <script src="assets/js/main.js"></script>
+
+    @if (session('success'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: '{{ session('success') }}',
+                    confirmButtonText: 'OK'
+                });
+            });
+        </script>
+    @endif
 
     <script>
         function togglePassword() {

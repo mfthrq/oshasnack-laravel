@@ -96,6 +96,7 @@
                             <input type="text" id="exampleInputEmail1" name="alamat" placeholder="Masukkan Alamat"
                                 required>
                         </div>
+
                         <div class="mb-5">
                             <label for="exampleInputPassword1" class="form-label">Password</label>
                             <div class="input-group">
@@ -114,7 +115,6 @@
                             Password harus mengandung minimal 8 karakter, huruf besar, huruf kecil, angka, dan
                             karakter khusus (@$!%*?&).
                         </div>
-
                         <div class="mb-5">
                             <label for="exampleInputPassword2" class="form-label">Konfirmasi Password</label>
                             <div class="input-group">
@@ -254,6 +254,32 @@
             }
         }
 
+        document.getElementById("signupForm").addEventListener("submit", function(event) {
+            var password = document.getElementById("exampleInputPassword1").value;
+            var confirmPassword = document.getElementById("exampleInputPassword2").value;
+            var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+            // Validasi ketentuan password saat submit
+            if (!passwordRegex.test(password)) {
+                event.preventDefault();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal!',
+                    text: 'Password harus mengandung minimal 8 karakter, huruf besar, huruf kecil, angka, dan karakter khusus (@$!%*?&).',
+                    confirmButtonColor: '#d33'
+                });
+            }
+            // Cek apakah password dan konfirmasi password cocok saat submit
+            else if (password !== confirmPassword) {
+                event.preventDefault();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal!',
+                    text: 'Password dan Konfirmasi Password Tidak Sama!',
+                    confirmButtonColor: '#d33'
+                });
+            }
+        });
     </script>
 </body>
 

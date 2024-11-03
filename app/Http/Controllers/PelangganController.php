@@ -54,7 +54,7 @@ class PelangganController extends Controller
             'password' => Hash::make($request->password),
         ]);
     
-        return redirect()->route('login')->with('success', 'Data berhasil ditambahkan');
+        return redirect()->route('login')->with('success', 'Akun berhasil dibuat');
     }
 
     public function update(Request $request, $id)
